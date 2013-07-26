@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <QuartzCore/QuartzCore.h>
 @interface BCViewController : UIViewController
+
+@property(strong, nonatomic) NSArray *stringArray;
 
 @end
