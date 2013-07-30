@@ -7,38 +7,28 @@
 //
 
 #import "BCViewController.h"
-#import "SEDraggable.h"
-#import "SEDraggableLocation.h"
 #import "BCEditLabelViewController.h"
+#import "ColorViewController.h"
 
+#define MIN_FONT_SIZE 12.0f
 #define FONT_SIZE 16.0f
-#define LABEL_CONTENT_WIDTH 100.0f
-#define LABEL_CONTENT_MARGIN 5.0f
-
-#define OBJECT_WIDTH 100.0f
-#define OBJECT_HEIGHT 100.0f
-#define MARGIN_VERTICAL 5.0f
-#define MARGIN_HORIZONTAL 5.0f
-#define DRAGGABLE_LOCATION_WIDTH  ((OBJECT_WIDTH  * 3) + (MARGIN_HORIZONTAL * 5))
-#define DRAGGABLE_LOCATION_HEIGHT ((OBJECT_HEIGHT * 3) + (MARGIN_VERTICAL   * 5))
-
-@interface BCViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate,BCEditLabelDelegate>
+@interface BCViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate,BCEditLabelDelegate,BSColorSelectionDelegate>
 {
 
     CGFloat beginX;
     CGFloat beginY;
     UILabel *currentLabel;
 }
-/////change background button action
-- (IBAction)ChangeBackgroundAction:(UIButton*)sender;
 
 - (void)handlePinch:(UIPinchGestureRecognizer *)recognizer;
 - (void)handleRotate:(UIRotationGestureRecognizer *)recognizer;
+
+@property(nonatomic, strong) NSMutableArray *fileArray;
+@property(nonatomic, strong) NSMutableArray *thumbArray;
 @property(nonatomic, strong) UILabel *currentLabel;
 @property (weak, nonatomic) IBOutlet UIView *BoundView;
 @property (weak, nonatomic) IBOutlet UIScrollView *ScrollView;
 @property (weak, nonatomic) IBOutlet UIView *TextureView;
-@property (nonatomic, unsafe_unretained, readwrite) SEDraggableLocation *draggableLocation;
 @property (strong, nonatomic) UIImagePickerController *imagePickerController;
 @property (strong, nonatomic) UIImageView *dragImageView;
 - (IBAction)addImageAction:(id)sender;
@@ -48,56 +38,163 @@
 @end
 
 @implementation BCViewController
-@synthesize draggableLocation = _draggableLocation;
 @synthesize currentLabel=currentLabel;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.fileArray=[[NSMutableArray alloc] init];
+    self.thumbArray=[[NSMutableArray alloc] init];
+    //////add all texture files file
+    for (int i=1; i<=79; i++) {
+        
+        UIImage *fileImage=[UIImage imageNamed:[NSString stringWithFormat:@"texture%i",i]];
+        [self.fileArray addObject:fileImage];
+    }
+    
+    //////add all texture files file
+    for (int i=1; i<=79; i++) {
+        
+        UIImage *thumbImage=[UIImage imageNamed:[NSString stringWithFormat:@"texture_thumb%i",i]];
+        [self.thumbArray addObject:thumbImage];
+    }
+    [self createScrollforThumb:self.thumbArray];
+}
+-(void)createScrollforThumb:(NSArray*)thumbArray{
+    
+        int xOffset= 2;
+        int tag =0;
+        for (UIImage *image in thumbArray) {
+            
+            UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn setImage:image forState:UIControlStateNormal];
+            btn.tag=tag;
+            CALayer *layer1 = [btn layer];
+            [layer1 setMasksToBounds:YES];
+            [layer1 setCornerRadius:7.0];
+            [layer1 setBorderWidth:1.0];
+            [layer1 setBorderColor:[[UIColor blackColor] CGColor]];
+            
+            btn.frame = CGRectMake(xOffset, 5, 60, 55);
+            [btn addTarget:self action:@selector(performTextureEffect:) forControlEvents:UIControlEventTouchUpInside];
+            [self.ScrollView addSubview:btn];
+            xOffset+=70;
+            tag++;
+        }
+    
+        UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn setFrame:CGRectMake(xOffset, 5, 60, 55)];
+        [btn setTitle:@"None" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor colorWithRed:0.461 green:0.544 blue:0.664 alpha:1.000] forState:UIControlStateNormal];
+        [btn.titleLabel setFont:[UIFont boldSystemFontOfSize:15]];
+        [btn setBackgroundColor:[UIColor whiteColor]];
+        [btn setTag:tag];
+        [btn addTarget:self action:@selector(performTextureEffect:) forControlEvents:UIControlEventTouchUpInside];
+        [self.ScrollView addSubview:btn];
+        xOffset+=70;
+        self.ScrollView.contentSize=CGSizeMake(xOffset, 65);
+}
+-(void)performTextureEffect:(UIButton*)sender{
+    
+    BOOL Check=[sender tag]==[self.fileArray count];
+    if (Check) {
+        
+        [self.BoundView setBackgroundColor:[UIColor whiteColor]];
+    }
+    else{
+        UIImage *image=[self.fileArray objectAtIndex:[sender tag]];
+    
+        [self.BoundView setBackgroundColor:[UIColor colorWithPatternImage:image]];
+    }
+    
 }
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
 
-    BCEditLabelViewController *bvc=(BCEditLabelViewController*)segue.destinationViewController;
-    bvc.delegate=self;
-    bvc.textToEdit=currentLabel.text;
+    if ([[segue identifier] isEqualToString:@"editTextLabel"]) {
+        
+        BCEditLabelViewController *bvc=(BCEditLabelViewController*)segue.destinationViewController;
+        bvc.delegate=self;
+        bvc.textToEdit=currentLabel.text;
+    }
+   
 }
 
+///////BSColorSelectionDelegate function
+-(void)finishWithColorSelection:(UIColor *)selectedColor{
+
+    [self.BoundView setBackgroundColor:selectedColor];
+    
+}
 //////code for select image and drag functionality///
 - (IBAction)addImageAction:(id)sender {
     
     UIActionSheet *actionSheet=[[UIActionSheet alloc] initWithTitle:@"Option" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Camera",@"Photo Album", nil];
+    actionSheet.tag=101;
     [actionSheet showInView:self.view];
 }
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     
+    
     //buttonIndex 2 is for when cancel button is pressed
     if(buttonIndex != 2) {
         
-        if (!self.imagePickerController) {
-            
-            self.imagePickerController = [[UIImagePickerController alloc] init];
-        }
-        
-        if(buttonIndex == 1) {
-            
-            [self.imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-        } else {
-            
-            if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        switch (actionSheet.tag) {
+            case 101:
+             {
+               
+                if (!self.imagePickerController) {
+                    
+                    self.imagePickerController = [[UIImagePickerController alloc] init];
+                }
+                
+                if(buttonIndex == 1) {
+                    
+                    [self.imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+                } else {
+                    
+                    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+                    {
+                        [self.imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
+                    }
+                    else
+                    {
+                        [self.imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+                    }
+                    
+                }
+                
+                [self.imagePickerController setDelegate:self];
+                [self.imagePickerController setAllowsEditing:YES];
+                
+                [self presentViewController:self.imagePickerController animated:YES completion:nil];
+              }
+                
+                break;
+                
+            case 102:
             {
-                [self.imagePickerController setSourceType:UIImagePickerControllerSourceTypeCamera];
-            }
-            else
-            {
-                [self.imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
-            }
             
+                if (buttonIndex==0) {
+                    
+                    //NSLog(@"open color wheel");
+                    [self dropTextureView:actionSheet];
+                    
+                    ColorViewController *cvc=[[ColorViewController alloc] init];
+                    cvc.delegate=self;
+                    [self presentModalViewController:cvc animated:YES];
+                }
+                else{
+                
+                    [self showTextureView:actionSheet];
+                }
+                
+            }
+                
+                
+            default:
+                break;
         }
-        
-        [self.imagePickerController setDelegate:self];
-        [self.imagePickerController setAllowsEditing:YES];
-        
-        [self presentViewController:self.imagePickerController animated:YES completion:nil];        
     }
 
 }
@@ -109,11 +206,12 @@
     
     [self dismissViewControllerAnimated:YES completion:^{
     
-        UIImage* newImage = [self imageWithImage:selectedImage scaledToWidth:100];
+        UIImage* newImage = selectedImage;
         
         if (self.dragImageView==nil) {
             
             self.dragImageView=[[UIImageView alloc] initWithFrame:CGRectMake(44, 44, 200, 200)];
+            [self.dragImageView setBackgroundColor:[UIColor clearColor]];
         }
         
         [_dragImageView setImage:newImage];
@@ -181,9 +279,9 @@
 - (IBAction)addLabelAction:(id)sender {
     
     UILabel *label=[[UILabel alloc] init];
-    [label setFrame:CGRectMake(200, 60, 150, 30)];
+    [label setFrame:CGRectMake(200, 60, 200, 30)];
     label.text=@"Double Tap to edit";
-    label.font=[UIFont fontWithName:@"Halvetica" size:FONT_SIZE];
+    //label.font=[UIFont fontWithName:@"Halvetica" size:FONT_SIZE];
     label.backgroundColor=[UIColor clearColor];
     label.userInteractionEnabled=YES;
     [self.BoundView addSubview:label];
@@ -191,6 +289,9 @@
     UIPanGestureRecognizer *panGestureLocal = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveLabel:)];
     [label addGestureRecognizer:panGestureLocal];
     
+    //////add pinch gesture on label
+    UIPinchGestureRecognizer *pinchGestureLocal = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
+    [label addGestureRecognizer:pinchGestureLocal];
     /////////add action on label
     UITapGestureRecognizer *tapGestureLocal = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapLabel:)];
     tapGestureLocal.numberOfTapsRequired=2;
@@ -200,52 +301,23 @@
     pressGestureLocal.minimumPressDuration=1.0f;
     [label addGestureRecognizer:pressGestureLocal];
 
-}
-
-
--(void)finishedSavingTextMessages{
     
-    int i=60;
-    for (NSString *message in self.stringArray) {
-        
-        if ([message length]>0) {
-            
-            UILabel *label=[[UILabel alloc] init];
-            [label setFrame:CGRectMake(200, i, 150, 30)];
-            label.text=message;
-            label.font=[UIFont fontWithName:@"Halvetica" size:FONT_SIZE];
-            label.backgroundColor=[UIColor clearColor];
-            label.tag=[self.stringArray indexOfObject:message];
-            label.userInteractionEnabled=YES;
-            [self.BoundView addSubview:label];
-            //////add pan getsture on each label
-            UIPanGestureRecognizer *panGestureLocal = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveLabel:)];
-            [label addGestureRecognizer:panGestureLocal];
-            
-            /////////add action on label
-            UITapGestureRecognizer *tapGestureLocal = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapLabel:)];
-            tapGestureLocal.numberOfTapsRequired=2;
-            [label addGestureRecognizer:tapGestureLocal];
-
-            i+=40;
-        }
-    }
+    //////add pinch gesture on label
+    
 }
--(CGSize)calculateSizeOfString:(NSString*)text{
 
-    CGSize constraint = CGSizeMake(LABEL_CONTENT_WIDTH - (LABEL_CONTENT_MARGIN * 2), 20000.0f);
-    CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:FONT_SIZE] constrainedToSize:constraint lineBreakMode:UILineBreakModeWordWrap];
-    return size;
-}
 -(IBAction)returned:(UIStoryboardSegue *)segue {
     
     
 }
--(void)saveTextWith:(NSString *)text txtFont:(NSString *)fontName txtColor:(UIColor *)txtColor{
+-(void)saveTextWith:(NSString *)text txtFont:(UIFont *)font txtColor:(UIColor *)txtColor{
 
+    //CGSize lLabelSIze = [text sizeWithFont:font forWidth:currentLabel.frame.size.width lineBreakMode:currentLabel.lineBreakMode];
     
+    //currentLabel.frame = CGRectMake(currentLabel.frame.origin.x, currentLabel.frame.origin.y, MAX(150, lLabelSIze.width), lLabelSIze.height);
+    [currentLabel setMinimumFontSize:MIN_FONT_SIZE];
     [currentLabel setText:text];
-    [currentLabel setFont:[UIFont fontWithName:fontName size:FONT_SIZE]];
+    [currentLabel setFont:font];
     [currentLabel setTextColor:txtColor];
     
 }
@@ -262,17 +334,6 @@
     [self performSegueWithIdentifier:@"editTextLabel" sender:recognizer];
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField{
-
-    [textField resignFirstResponder];
-    [textField removeFromSuperview];
-    if ([textField.text length]==0) {
-        [currentLabel removeFromSuperview];
-    }
-    currentLabel.text=textField.text;
-    currentLabel.hidden=NO;
-    return YES;
-}
 //////make label dragable
 -(void)moveLabel:(UIPanGestureRecognizer *)recognizer
 {
@@ -288,52 +349,29 @@
 }
 ///////////changing back ground of the screen
 
-- (IBAction)ChangeBackgroundAction:(UIButton*)sender {
-    
-    switch ([sender tag]) {
-        case 101:
-            
-            [self.BoundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"texture1"]]];
-            break;
-        case 102:
-            [self.BoundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"texture2"]]];
-            break;
-        case 103:
-            [self.BoundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"texture3"]]];
-            break;
-        case 104:
-            [self.BoundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"texture4"]]];
-            break;
-        case 105:
-            [self.BoundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"texture5"]]];
-            break;
-        case 106:
-            [self.BoundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"texture6"]]];
-            break;
-        case 107:
-            [self.BoundView setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"texture7"]]];
-            break;
-        default:
-            
-            break;
-    }
-    
-}
 
 - (IBAction)changeBackground:(id)sender {
     
-    [self.ScrollView setContentSize:CGSizeMake(500, 49)];
-    [UIView animateWithDuration:0.5f animations:^{
+    UIActionSheet *actionSheet=[[UIActionSheet alloc] initWithTitle:@"Option" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Color",@"Templates", nil];
+    actionSheet.tag=102;
+    [actionSheet showInView:self.view];
     
-        [self.TextureView setFrame:CGRectMake(0, 207, 480, 49)];
     
-    }];
 }
--(IBAction)DropTextureView:(id)sender{
+-(void)showTextureView:(id)sender{
 
     [UIView animateWithDuration:0.5f animations:^{
         
-        [self.TextureView setFrame:CGRectMake(0, 255, 480, 49)];
+        [self.TextureView setFrame:CGRectMake(0, 191, 480, 65)];
+        
+    }];
+}
+
+-(IBAction)dropTextureView:(id)sender{
+
+    [UIView animateWithDuration:0.5f animations:^{
+        
+        [self.TextureView setFrame:CGRectMake(0, 257, 480, 65)];
         
     }];
     
@@ -350,7 +388,7 @@
     UIGraphicsEndImageContext();
     
     /* Render the screen shot at custom resolution */
-    CGRect cropRect = CGRectMake(0 ,0 ,480 ,320);
+    CGRect cropRect = CGRectMake(0 ,0 ,960 ,512);
     UIGraphicsBeginImageContextWithOptions(cropRect.size, captureView.opaque, 1.0f);
     [screenshot drawInRect:cropRect];
     UIImage * customScreenShot = UIGraphicsGetImageFromCurrentImageContext();
@@ -378,80 +416,3 @@
     [super viewDidUnload];
 }
 @end
-
-/*
- #pragma mark MakeImageDragable methods
- - (void) setupDraggableLocations {
- 
- // set up the SEDraggableLocations
- CGRect frameArea=CGRectMake(0, 44, 200, 256);
- SEDraggableLocation *draggableLocationArea = [[SEDraggableLocation alloc] initWithFrame:frameArea];
- 
- // you always want your SEDraggableLocations to be transparent -- otherwise, SEDraggable
- // objects will sometimes seem to hide behind certain locations while being dragged
- draggableLocationArea.backgroundColor = [UIColor clearColor];
- 
- // ... however, we can put clear SEDraggableLocations in front of UIViews
- // that have background images or colors to circumvent this obstacle
- UIView *Wrapper    = [[UIView alloc] initWithFrame: draggableLocationArea.frame];
- Wrapper.backgroundColor    = [UIColor lightGrayColor];
- [self.view addSubview: Wrapper];
- 
- [self.view addSubview: draggableLocationArea];
- 
- [self configureDraggableLocation: draggableLocationArea];
- self.draggableLocation = draggableLocationArea;
- }
- 
- 
- 
- - (void) configureDraggableLocation:(SEDraggableLocation *)draggableLocation {
- // set the width and height of the objects to be contained in this SEDraggableLocation (for spacing/arrangement purposes)
- draggableLocation.objectWidth = OBJECT_WIDTH;
- draggableLocation.objectHeight = OBJECT_HEIGHT;
- 
- // set the bounding margins for this location
- draggableLocation.marginLeft = MARGIN_HORIZONTAL;
- draggableLocation.marginRight = MARGIN_HORIZONTAL;
- draggableLocation.marginTop = MARGIN_VERTICAL;
- draggableLocation.marginBottom = MARGIN_VERTICAL;
- 
- // set the margins that should be preserved between auto-arranged objects in this location
- draggableLocation.marginBetweenX = MARGIN_HORIZONTAL;
- draggableLocation.marginBetweenY = MARGIN_VERTICAL;
- 
- // set up highlight-on-drag-over behavior
- draggableLocation.highlightColor = [UIColor lightGrayColor].CGColor;
- draggableLocation.highlightOpacity = 0.4f;
- draggableLocation.shouldHighlightOnDragOver = YES;
- 
- // you may want to toggle this on/off when certain events occur in your app
- draggableLocation.shouldAcceptDroppedObjects = YES;
- 
- // set up auto-arranging behavior
- draggableLocation.shouldKeepObjectsArranged = NO;
- draggableLocation.fillHorizontallyFirst = YES; // NO makes it fill rows first
- draggableLocation.allowRows = YES;
- draggableLocation.allowColumns = YES;
- draggableLocation.shouldAnimateObjectAdjustments = YES; // if this is set to NO, objects will simply appear instantaneously at their new positions
- draggableLocation.animationDuration = 0.5f;
- draggableLocation.animationDelay = 0.0f;
- draggableLocation.animationOptions = UIViewAnimationOptionLayoutSubviews ; // UIViewAnimationOptionBeginFromCurrentState;
- 
- draggableLocation.shouldAcceptObjectsSnappingBack = YES;
- }
- - (void) setupDraggableObjects:(UIImage*)image {
- 
- UIImageView *draggableImageView = [[UIImageView alloc] initWithImage: image];
- SEDraggable *draggable = [[SEDraggable alloc] initWithImageView: draggableImageView];
- [self configureDraggableObject: draggable];
- 
- }
- - (void) configureDraggableObject:(SEDraggable *)draggable {
- draggable.homeLocation = self.draggableLocation;
- [draggable addAllowedDropLocation: self.draggableLocation];
- [self.draggableLocation addDraggableObject:draggable animated:NO];
- }
- */
-//////////////////////////////////////////////////////////////////////////////////////////////////
-

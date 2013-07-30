@@ -10,7 +10,7 @@
 
 @protocol BCEditLabelDelegate <NSObject>
 
--(void)saveTextWith:(NSString*)text txtFont:(NSString*)fontName txtColor:(UIColor*)txtColor;
+-(void)saveTextWith:(NSString*)text txtFont:(UIFont*)font txtColor:(UIColor*)txtColor;
 
 @end
 

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>CFBundleExecutable</key>
+	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIcons</key>
+	<dict>
+		<key>CFBundlePrimaryIcon</key>
+		<dict>
+			<key>CFBundleIconFiles</key>
+			<array>
+				<string>Icon.png</string>
+				<string>Icon@2x.png</string>
+			</array>
+		</dict>
+	</dict>
+	<key>CFBundleIdentifier</key>
+	<string>appstudioz.${PRODUCT_NAME:rfc1034identifier}</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.0</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>18 Holes BRK.TTF</string>
+		<string>Abilene.TTF</string>
+		<string>Achilles.TTF</string>
+		<string>10CentSoviet.TTF</string>
+		<string>20th Centenary Faux.TTF</string>
+		<string>36 days ago BRK.TTF</string>
+		<string>36 days ago Thick BRK.TTF</string>
+		<string>256 Bytes.TTF</string>
+		<string>A Cut Above The Rest.TTF</string>
+		<string>A780-Deco.TTF</string>
+		<string>Achilles Italic.TTF</string>
+		<string>Action Is JL.TTF</string>
+		<string>Action Is, Diagonal JL Italic.TTF</string>
+		<string>Action Is, Shaded JL.TTF</string>
+		<string>Adriator.TTF</string>
+		<string>Agnes-Regular.TTF</string>
+		<string>Airmole Shaded.TTF</string>
+		<string>Airmole Stripe.TTF</string>
+		<string>Allstar.TTF</string>
+		<string>Ambrosia MF.TTF</string>
+		<string>Americana Dreams Condensed.TTF</string>
+		<string>Americana Dreams CondUpright.TTF</string>
+		<string>Angelic War.TTF</string>
+		<string>AnnabelScript.TTF</string>
+		<string>Aristotle Punk.TTF</string>
+		<string>Asenine.TTF</string>
+		<string>Ataxia BRK.TTF</string>
+		<string>Ataxia Outline BRK.TTF</string>
+		<string>Avondale Cond.TTF</string>
+		<string>Avondale Italic.TTF</string>
+		<string>Baby Jeepers.TTF</string>
+		<string>Ballad-Script.TTF</string>
+		<string>BarberShop.TTF</string>
+		<string>Beethoven.TTF</string>
+		<string>Beta Block.TTF</string>
+		<string>Betsy Flanagan.TTF</string>
+		<string>Betty Noir.TTF</string>
+		<string>hearts.TTF</string>
+		<string>Retro Rock Poster.TTF</string>
+		<string>Rustick_Capitals.TTF</string>
+		<string>Salmon.TTF</string>
+		<string>Savannah.TTF</string>
+		<string>Scretch.TTF</string>
+		<string>Serfin.TTF</string>
+		<string>Service Condensed.TTF</string>
+		<string>Service Italic.TTF</string>
+		<string>Service Outline Italic.TTF</string>
+		<string>Service Outline.TTF</string>
+		<string>SF Baroquesque Condensed.TTF</string>
+		<string>SF Baroquesque Extended Oblique.TTF</string>
+		<string>SF Baroquesque Extended.TTF</string>
+		<string>SF Tattle Tales Bold Italic.TTF</string>
+		<string>SF Tattle Tales Bold.TTF</string>
+		<string>SF Tattle Tales Outline.TTF</string>
+		<string>SF Tattle Tales Shadow Italic.TTF</string>
+		<string>SF Telegraphic Light Bold.TTF</string>
+		<string>SF Telegraphic Light Italic.TTF</string>
+		<string>SF Telegraphic Light.TTF</string>
+	</array>
+	<key>UIMainStoryboardFile</key>
+	<string>MainStoryboard</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+</dict>
+</plist>

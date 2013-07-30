@@ -16,7 +16,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem title="Background" id="B8Y-OJ-zWz">
+                                    <barButtonItem title="Solid Background" id="B8Y-OJ-zWz">
                                         <connections>
                                             <action selector="changeBackground:" destination="2" id="UDS-Y8-3YT"/>
                                         </connections>
@@ -29,6 +29,11 @@
                                     <barButtonItem systemItem="add" id="wOa-2b-wZD">
                                         <connections>
                                             <action selector="addLabelAction:" destination="2" id="uE0-xg-YkC"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Info" id="KNv-ZR-z4Q">
+                                        <connections>
+                                            <segue destination="rAN-Dd-r48" kind="push" id="l0L-Kd-2PO"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem systemItem="flexibleSpace" id="so7-dO-6ry"/>
@@ -44,123 +49,17 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="kCV-5Q-35v">
-                                        <rect key="frame" x="0.0" y="257" width="480" height="49"/>
+                                        <rect key="frame" x="0.0" y="257" width="480" height="65"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="DUi-Of-jS0">
-                                                <rect key="frame" x="0.0" y="0.0" width="400" height="49"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="400" height="65"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                <subviews>
-                                                    <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BhE-xn-aBe">
-                                                        <rect key="frame" x="4" y="3" width="60" height="44"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                        <state key="normal" image="texture_thumb1.png">
-                                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="ChangeBackgroundAction:" destination="2" eventType="touchUpInside" id="ipn-Uh-FPQ"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MUd-wt-MOH">
-                                                        <rect key="frame" x="71" y="3" width="60" height="44"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                        <state key="normal" title="Button" image="texture_thumb2.png">
-                                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="ChangeBackgroundAction:" destination="2" eventType="touchUpInside" id="eWY-Zz-YeH"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="103" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="lRy-ap-c2S">
-                                                        <rect key="frame" x="143" y="3" width="60" height="44"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                        <state key="normal" image="texture_thumb3.png">
-                                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="ChangeBackgroundAction:" destination="2" eventType="touchUpInside" id="5lh-Wy-AIV"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MMC-KZ-mAi">
-                                                        <rect key="frame" x="213" y="3" width="60" height="44"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                        <state key="normal" image="texture_thumb4.png">
-                                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="ChangeBackgroundAction:" destination="2" eventType="touchUpInside" id="E6K-iw-RRM"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="105" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Lzg-Zy-yLF">
-                                                        <rect key="frame" x="284" y="3" width="60" height="44"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                        <state key="normal" image="texture_thumb5.png">
-                                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="ChangeBackgroundAction:" destination="2" eventType="touchUpInside" id="MBy-GI-Kmv"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="9Ec-gr-VaA">
-                                                        <rect key="frame" x="352" y="3" width="60" height="44"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                        <state key="normal" title="Button" image="texture_thumb6.png">
-                                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="ChangeBackgroundAction:" destination="2" eventType="touchUpInside" id="KI0-yU-PYZ"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" tag="107" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="r23-re-5ec">
-                                                        <rect key="frame" x="416" y="3" width="60" height="44"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                        <state key="normal" image="texture_thumb7.png">
-                                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="ChangeBackgroundAction:" destination="2" eventType="touchUpInside" id="HHr-9U-eQ6"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
                                             </scrollView>
-                                            <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="I1x-bA-AgM">
-                                                <rect key="frame" x="415" y="3" width="60" height="45"/>
+                                            <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="I1x-bA-AgM">
+                                                <rect key="frame" x="413" y="10" width="60" height="45"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                 <state key="normal" title="Done">
                                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -170,7 +69,7 @@
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
-                                                    <action selector="DropTextureView:" destination="2" eventType="touchUpInside" id="B8r-YB-3yy"/>
+                                                    <action selector="dropTextureView:" destination="2" eventType="touchUpInside" id="C0S-r5-hLl"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -222,8 +121,8 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" minimumFontSize="17" clearButtonMode="whileEditing" id="eXK-Ba-5DL">
-                                <rect key="frame" x="112" y="80" width="257" height="30"/>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0123456789012345678901234567890123456789" borderStyle="bezel" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="eXK-Ba-5DL">
+                                <rect key="frame" x="76" y="80" width="327" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -267,114 +166,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FOp-XQ-8V6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="uQX-0W-zd8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1236" y="-9"/>
-        </scene>
-        <!--Text View Controller-->
-        <scene sceneID="YZk-ea-W32">
-            <objects>
-                <viewController storyboardIdentifier="OldInterface" id="1cj-Pf-H7t" customClass="BCTextViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="gqq-d8-6Cm">
-                        <rect key="frame" x="0.0" y="20" width="480" height="300"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="fpi-wb-LmO" customClass="TPKeyboardAvoidingScrollView">
-                                <rect key="frame" x="0.0" y="44" width="480" height="256"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" id="FGK-Lg-FSh">
-                                        <rect key="frame" x="0.0" y="256" width="480" height="55"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="rsM-un-9jp">
-                                                <rect key="frame" x="1" y="0.0" width="480" height="55"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cvj-xZ-EAd">
-                                                        <rect key="frame" x="7" y="6" width="73" height="44"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                        <state key="normal" title="Button">
-                                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                    </button>
-                                                </subviews>
-                                            </scrollView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                    </view>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder=" name" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="geb-jh-hkN">
-                                        <rect key="frame" x="77" y="8" width="326" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="job title" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="u6Y-r2-FYr">
-                                        <rect key="frame" x="77" y="48" width="326" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="phone number" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="ON5-1V-5Gt">
-                                        <rect key="frame" x="77" y="88" width="326" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="email" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="mBd-rX-BWV">
-                                        <rect key="frame" x="77" y="128" width="326" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="website" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="Q8p-Lc-cQk">
-                                        <rect key="frame" x="77" y="168" width="326" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                </subviews>
-                            </scrollView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="TiY-Zx-EKp">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                <items>
-                                    <barButtonItem title="Font" id="4WG-QM-hPS">
-                                        <connections>
-                                            <action selector="showFont:" destination="1cj-Pf-H7t" id="eB7-b0-IfY"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem systemItem="flexibleSpace" id="kEU-oq-JaU"/>
-                                    <barButtonItem title="Done" id="JMP-xs-QAV">
-                                        <connections>
-                                            <segue destination="7Gi-4b-lkl" kind="unwind" unwindAction="returned:" id="fBW-wd-efO"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="cPy-9Y-9yw"/>
-                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
-                    <connections>
-                        <outlet property="FontView" destination="FGK-Lg-FSh" id="bTk-XK-wUK"/>
-                        <outlet property="fontScrollView" destination="rsM-un-9jp" id="Owy-1e-rpH"/>
-                        <outletCollection property="txtFieldMessage" destination="geb-jh-hkN" id="Ypm-C5-LWc"/>
-                        <outletCollection property="txtFieldMessage" destination="u6Y-r2-FYr" id="VYt-lh-DuT"/>
-                        <outletCollection property="txtFieldMessage" destination="ON5-1V-5Gt" id="gda-Ha-PGv"/>
-                        <outletCollection property="txtFieldMessage" destination="mBd-rX-BWV" id="tGq-7A-jL1"/>
-                        <outletCollection property="txtFieldMessage" destination="Q8p-Lc-cQk" id="B4P-MY-Hlm"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Szb-B4-dEy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="7Gi-4b-lkl" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="453" y="667"/>
+            <point key="canvasLocation" x="1360" y="-5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="TWo-22-mkr">
@@ -395,16 +187,165 @@
             </objects>
             <point key="canvasLocation" x="6" y="3"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="6bV-IZ-fwA">
+            <objects>
+                <viewController id="rAN-Dd-r48" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="62n-aq-yb3">
+                        <rect key="frame" x="0.0" y="20" width="480" height="300"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="eQN-T5-BQj">
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="GoU-t9-1mP"/>
+                                    <barButtonItem title="Cancel" id="TTH-Kb-wAh">
+                                        <connections>
+                                            <segue destination="9vW-9j-b9Z" kind="unwind" unwindAction="returned:" id="OSd-Yg-VMg"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="uTz-bH-Dzd">
+                                <rect key="frame" x="0.0" y="44" width="480" height="256"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <mutableString key="text">ABOUT:
+
+digiBizCard allows you to create digital business cards that 
+you can text or email to anyone who you want to do business with! 
+
+Give your digiBizCard to your friends, family and co-workers
+so they can promote you and your services to as many people
+as possible! Who wants to carry around hundreds of old-fashioned
+paper business cards?
+
+Go "Green" with a paperless business card that you can easily
+text or email to anyone with ease. Save the planet and promote
+your business at the same time. Read the many benefits of using
+digiBizCard below. 
+
+BENEFITS: 
+
+* Environmentally Friendly - "Green" Business Cards
+  Your business card will be paperless, therefore have much
+  less of an impact on the environment (trees, forests, carbon)
+
+* You'll NEVER RUN OUT of business cards with digiBizCard!
+  No need to have thousands of cards printed, you only need
+  one and you can text it or email it to as many people as
+  you need to! 
+
+* Build relationships with your prospects. When you share
+  your digiBizCard, you will either text it or email it 
+  to the potential client. Therefore you will have their
+  contact information and be able to follow up with them.
+  Traditional business cards do NOT have this advantage!
+
+* Promote other people's businesses with ease (friends,
+  family members, co-workers) by simply storing their 
+  digiBizCard in your photo library on your phone for 
+  texting or emailing or on your computer. NO need to 
+  carry around boxes of hundreds of cards.
+
+* Change the look and feel of your business card anytime
+  by creating a new one! If you change your phone number
+  or email address, NO need to order another box of cards! 
+
+* Promote multiple businesses/services of your own without
+  needing to purchase a box of cards for each one. 
+
+* Save TIME, MONEY, PROMOTE YOURSELF and HAVE FUN!
+
+INSTRUCTIONS:
+
+When digiBizCard opens, you will have a blank canvas.
+Use the following buttons in the top menu to do the
+following tasks:
+
+"SOLID BACKGROUND" and "TEMPLATE" BUTTONS: 
+
+These are for the background of your business card.
+It will replace the blank white canvas. 
+You can choose either a SOLID BACKGROUND or a TEMPLATE.
+
+* SOLID BACKGROUND will give you a solid background COLOR for
+your business card.
+
+* TEMPLATE will give you a pre-made template background,
+there are many to choose from! 
+
+NOTE: You can choose a COLOR -OR- a TEMPLATE, NOT both.
+You can either have a solid color background, OR
+choose from one of our templates.  
+
+"IMAGES" BUTTON:
+
+You can place ONE image on your digiBizCard. 
+It can be an image of you, a QR code, or your company logo, etc.
+You can take the photo with your camera OR
+choose an existing photo from your library.
+
+You can drag the picture anywhere on the canvas.
+You can resize the image using two fingers to pinch
+outward to make it larger and inward to make it smaller.
+
+You can ONLY PLACE ONE IMAGE in digiBizCard version 1.0
+
+(Later versions will have many cool upgrades, we want your feedback!)
+
+PLUS SYMBOL (+) BUTTON:
+
+The "+" symbol will add a TEXT element to your card.
+You can add as many text elements as you want.
+
+We suggest creating text elements for your:
+
+* Name
+* Job Title (i.e. Electrician, Plumber, CEO, Vice President)
+* Phone Number
+* Email Address
+* Website (if applicable) 
+
+(Other Optional/Ideas) 
+- Social Media URL's
+- Physical Address of Business
+- Additional Numbers (Fax, Office, Mobile)
+
+Double tap the text element to edit the font type
+and font color. Then drag the text anywhere you want.
+
+You can resize the text using two fingers to pinch
+outward to make it larger and inward to make it smaller.
+
+FINALIZING YOUR CARD:
+
+After you've chosen your background or template, added all of your text 
+elements and an image (optional) and placed everything where you want it 
+to be you can save your card and it will automatically be saved to your 
+photo library!
+
+Then you can easily share your digiBizCard by texting it or emailing
+it to anyone who wants it! 
+
+Thank you for choosing digiBizCard! PLEASE spread the word about
+"going green" when it comes to business cards. </mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="5ga-an-lrN"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b7O-6p-Yqv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="9vW-9j-b9Z" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1256" y="563"/>
+        </scene>
     </scenes>
-    <resources>
-        <image name="texture_thumb1.png" width="120" height="100"/>
-        <image name="texture_thumb2.png" width="120" height="100"/>
-        <image name="texture_thumb3.png" width="120" height="100"/>
-        <image name="texture_thumb4.png" width="120" height="100"/>
-        <image name="texture_thumb5.png" width="120" height="100"/>
-        <image name="texture_thumb6.png" width="120" height="100"/>
-        <image name="texture_thumb7.png" width="120" height="100"/>
-    </resources>
     <classes>
         <class className="BCEditLabelViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BCEditLabelViewController.h"/>
@@ -415,30 +356,22 @@
                 <relationship kind="outlet" name="txtField" candidateClass="UITextField"/>
             </relationships>
         </class>
-        <class className="BCTextViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/BCTextViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="showFont:"/>
-                <relationship kind="outlet" name="FontView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="fontScrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outletCollection" name="txtFieldMessage" candidateClass="UITextField"/>
-            </relationships>
-        </class>
         <class className="BCViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/BCViewController.h"/>
             <relationships>
-                <relationship kind="action" name="ChangeBackgroundAction:" candidateClass="UIButton"/>
                 <relationship kind="action" name="addImageAction:"/>
                 <relationship kind="action" name="addLabelAction:"/>
                 <relationship kind="action" name="changeBackground:"/>
+                <relationship kind="action" name="dropTextureView:"/>
+                <relationship kind="action" name="returned:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="saveAction:"/>
                 <relationship kind="outlet" name="BoundView" candidateClass="UIView"/>
                 <relationship kind="outlet" name="ScrollView" candidateClass="UIScrollView"/>
                 <relationship kind="outlet" name="TextureView" candidateClass="UIView"/>
             </relationships>
         </class>
-        <class className="TPKeyboardAvoidingScrollView" superclassName="UIScrollView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/TPKeyboardAvoidingScrollView.h"/>
+        <class className="UIStoryboardSegue" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
