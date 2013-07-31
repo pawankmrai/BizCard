@@ -16,7 +16,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem title="Solid Background" id="B8Y-OJ-zWz">
+                                    <barButtonItem title="Background" id="B8Y-OJ-zWz">
                                         <connections>
                                             <action selector="changeBackground:" destination="2" id="UDS-Y8-3YT"/>
                                         </connections>
@@ -29,6 +29,11 @@
                                     <barButtonItem systemItem="add" id="wOa-2b-wZD">
                                         <connections>
                                             <action selector="addLabelAction:" destination="2" id="uE0-xg-YkC"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Clear" id="Qe7-NO-IAc">
+                                        <connections>
+                                            <action selector="clearCanvasAction:" destination="2" id="Ynz-M7-cIS"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Info" id="KNv-ZR-z4Q">
@@ -47,36 +52,34 @@
                             <view contentMode="scaleToFill" id="m1P-ku-ueg">
                                 <rect key="frame" x="0.0" y="44" width="480" height="256"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" id="kCV-5Q-35v">
-                                        <rect key="frame" x="0.0" y="257" width="480" height="65"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="DUi-Of-jS0">
-                                                <rect key="frame" x="0.0" y="0.0" width="400" height="65"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </scrollView>
-                                            <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="I1x-bA-AgM">
-                                                <rect key="frame" x="413" y="10" width="60" height="45"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                                <state key="normal" title="Done">
-                                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <state key="highlighted">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="dropTextureView:" destination="2" eventType="touchUpInside" id="C0S-r5-hLl"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="kCV-5Q-35v">
+                                <rect key="frame" x="0.0" y="300" width="480" height="65"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="DUi-Of-jS0">
+                                        <rect key="frame" x="0.0" y="0.0" width="400" height="65"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </scrollView>
+                                    <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="I1x-bA-AgM">
+                                        <rect key="frame" x="413" y="10" width="60" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Done">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="dropTextureView:" destination="2" eventType="touchUpInside" id="C0S-r5-hLl"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -124,6 +127,7 @@
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0123456789012345678901234567890123456789" borderStyle="bezel" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="eXK-Ba-5DL">
                                 <rect key="frame" x="76" y="80" width="327" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
@@ -211,66 +215,19 @@
                                 <rect key="frame" x="0.0" y="44" width="480" height="256"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <mutableString key="text">ABOUT:
+                                <mutableString key="text">INSTRUCTIONS:
 
-digiBizCard allows you to create digital business cards that 
-you can text or email to anyone who you want to do business with! 
-
-Give your digiBizCard to your friends, family and co-workers
-so they can promote you and your services to as many people
-as possible! Who wants to carry around hundreds of old-fashioned
-paper business cards?
-
-Go "Green" with a paperless business card that you can easily
-text or email to anyone with ease. Save the planet and promote
-your business at the same time. Read the many benefits of using
-digiBizCard below. 
-
-BENEFITS: 
-
-* Environmentally Friendly - "Green" Business Cards
-  Your business card will be paperless, therefore have much
-  less of an impact on the environment (trees, forests, carbon)
-
-* You'll NEVER RUN OUT of business cards with digiBizCard!
-  No need to have thousands of cards printed, you only need
-  one and you can text it or email it to as many people as
-  you need to! 
-
-* Build relationships with your prospects. When you share
-  your digiBizCard, you will either text it or email it 
-  to the potential client. Therefore you will have their
-  contact information and be able to follow up with them.
-  Traditional business cards do NOT have this advantage!
-
-* Promote other people's businesses with ease (friends,
-  family members, co-workers) by simply storing their 
-  digiBizCard in your photo library on your phone for 
-  texting or emailing or on your computer. NO need to 
-  carry around boxes of hundreds of cards.
-
-* Change the look and feel of your business card anytime
-  by creating a new one! If you change your phone number
-  or email address, NO need to order another box of cards! 
-
-* Promote multiple businesses/services of your own without
-  needing to purchase a box of cards for each one. 
-
-* Save TIME, MONEY, PROMOTE YOURSELF and HAVE FUN!
-
-INSTRUCTIONS:
-
-When digiBizCard opens, you will have a blank canvas.
+When digiBiz Card opens, you will have a blank canvas.
 Use the following buttons in the top menu to do the
 following tasks:
 
-"SOLID BACKGROUND" and "TEMPLATE" BUTTONS: 
+"BACKGROUND" BUTTON:
 
-These are for the background of your business card.
+This is for the background template of your business card.
 It will replace the blank white canvas. 
-You can choose either a SOLID BACKGROUND or a TEMPLATE.
+You can choose either a SOLID COLOR or a TEMPLATE.
 
-* SOLID BACKGROUND will give you a solid background COLOR for
+* SOLID COLOR will give you a solid background COLOR for
 your business card.
 
 * TEMPLATE will give you a pre-made template background,
@@ -282,7 +239,7 @@ choose from one of our templates.
 
 "IMAGES" BUTTON:
 
-You can place ONE image on your digiBizCard. 
+You can place ONE image on your digiBiz Card. 
 It can be an image of you, a QR code, or your company logo, etc.
 You can take the photo with your camera OR
 choose an existing photo from your library.
@@ -291,11 +248,16 @@ You can drag the picture anywhere on the canvas.
 You can resize the image using two fingers to pinch
 outward to make it larger and inward to make it smaller.
 
-You can ONLY PLACE ONE IMAGE in digiBizCard version 1.0
+You can also rotate the image using two fingers. 
+
+You can ONLY PLACE ONE IMAGE in digiBiz Card version 1.0
 
 (Later versions will have many cool upgrades, we want your feedback!)
 
-PLUS SYMBOL (+) BUTTON:
+You can DELETE IMAGES by holding your finger on the image for 3 seconds. 
+
+THE PLUS SYMBOL (+) BUTTON:
+(FOR ADDING TEXT)
 
 The "+" symbol will add a TEXT element to your card.
 You can add as many text elements as you want.
@@ -317,20 +279,74 @@ Double tap the text element to edit the font type
 and font color. Then drag the text anywhere you want.
 
 You can resize the text using two fingers to pinch
-outward to make it larger and inward to make it smaller.
+outward (horizontally) to make it larger and inward to make it smaller.
 
-FINALIZING YOUR CARD:
+DELETE TEXT elements by holding your finger on them for 2 SECONDS.
+It will disappear when you hold your finger on the text. 
+
+"SAVE" BUTTON - FINALIZING YOUR CARD:
 
 After you've chosen your background or template, added all of your text 
 elements and an image (optional) and placed everything where you want it 
 to be you can save your card and it will automatically be saved to your 
-photo library!
+photo library! Simply click the save button on the top right to save. 
 
-Then you can easily share your digiBizCard by texting it or emailing
+Then you can easily share your digiBiz Card by texting it or emailing
 it to anyone who wants it! 
 
-Thank you for choosing digiBizCard! PLEASE spread the word about
-"going green" when it comes to business cards. </mutableString>
+Thank you for choosing digiBiz Card! PLEASE spread the word about
+"going green" when it comes to business cards. 
+
+ABOUT digiBiz Card:
+
+digiBiz Card allows you to create "digital" business cards that 
+you can text or email to anyone who you want to do business with! 
+
+Give your digiBiz Card to your friends, family and co-workers
+so they can promote you and your services to as many people
+as possible! Who wants to carry around hundreds of old-fashioned
+paper business cards?
+
+It's fun to design and create your own digital business card
+right from your iPhone. 
+
+Go "Green" with a paperless business card that you can easily
+text or email to anyone with ease. Save the planet and promote
+your business at the same time. Read the many benefits of using
+digiBiz Card below. 
+
+BENEFITS: 
+
+* SAVE MONEY!
+  You'll NEVER RUN OUT of business cards with digiBiz Card!
+  No need to have thousands of cards printed, you only need
+  one and you can text it or email it to as many people as
+  you need to! 
+
+* Build relationships with your prospects. When you share
+  your digiBiz Card, you will either text it or email it 
+  to the potential client. Therefore you will have their
+  contact information and be able to follow up with them.
+  Traditional business cards do NOT have this advantage!
+
+* Change the look and feel of your business card anytime
+  by creating a new one! If you change your phone number
+  or email address, NO need to order another box of cards! 
+
+* Promote other people's businesses with ease (friends,
+  family members, co-workers) by simply storing their 
+  digiBiz Card in your photo library on your phone for 
+  texting or emailing or on your computer. NO need to 
+  carry around boxes of hundreds of cards.
+
+* Promote multiple businesses/services of your own without
+  needing to purchase a box of cards for each one. 
+
+* Environmentally Friendly - "Green" Paperless Business Cards
+  Your business card will be paperless, therefore have much
+  less of an impact on the environment (trees, forests, carbon)
+
+* Save TIME, MONEY, PROMOTE YOURSELF and HAVE FUN!</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
@@ -362,6 +378,7 @@ Thank you for choosing digiBizCard! PLEASE spread the word about
                 <relationship kind="action" name="addImageAction:"/>
                 <relationship kind="action" name="addLabelAction:"/>
                 <relationship kind="action" name="changeBackground:"/>
+                <relationship kind="action" name="clearCanvasAction:"/>
                 <relationship kind="action" name="dropTextureView:"/>
                 <relationship kind="action" name="returned:" candidateClass="UIStoryboardSegue"/>
                 <relationship kind="action" name="saveAction:"/>

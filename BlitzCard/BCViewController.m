@@ -23,6 +23,7 @@
 - (void)handlePinch:(UIPinchGestureRecognizer *)recognizer;
 - (void)handleRotate:(UIRotationGestureRecognizer *)recognizer;
 
+@property(nonatomic, strong)  UIButton *tempImageView;
 @property(nonatomic, strong) NSMutableArray *fileArray;
 @property(nonatomic, strong) NSMutableArray *thumbArray;
 @property(nonatomic, strong) UILabel *currentLabel;
@@ -35,6 +36,8 @@
 - (IBAction)changeBackground:(id)sender;
 - (IBAction)saveAction:(id)sender;
 - (IBAction)addLabelAction:(id)sender;
+- (IBAction)clearCanvasAction:(id)sender;
+
 @end
 
 @implementation BCViewController
@@ -46,6 +49,17 @@
     
     self.fileArray=[[NSMutableArray alloc] init];
     self.thumbArray=[[NSMutableArray alloc] init];
+    
+    //////add instruction page on front
+    CGRect frame=CGRectMake(0, 0, 480, 320);
+    _tempImageView=[UIButton buttonWithType:UIButtonTypeCustom];
+    [_tempImageView setFrame:frame];
+    [_tempImageView setImage:[UIImage imageNamed:@"AppBackground"] forState:UIControlStateNormal];
+    //////add action
+    [_tempImageView addTarget:self action:@selector(tapTempImageView:) forControlEvents:UIControlEventTouchUpInside];
+
+    [self.view addSubview:_tempImageView];    
+    
     //////add all texture files file
     for (int i=1; i<=79; i++) {
         
@@ -60,6 +74,11 @@
         [self.thumbArray addObject:thumbImage];
     }
     [self createScrollforThumb:self.thumbArray];
+}
+-(void)tapTempImageView:(UIButton*)recognizer{
+
+    [recognizer removeFromSuperview];
+    
 }
 -(void)createScrollforThumb:(NSArray*)thumbArray{
     
@@ -229,6 +248,13 @@
         UIRotationGestureRecognizer *rotateGestureLocal = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(handleRotate:)];
         [_dragImageView addGestureRecognizer:rotateGestureLocal];
         
+        UILongPressGestureRecognizer *pressGestureLocal = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(pressImage:)];
+        pressGestureLocal.minimumPressDuration=2.0f;
+        [_dragImageView addGestureRecognizer:pressGestureLocal];
+        
+        [panGestureLocal requireGestureRecognizerToFail:pinchGestureLocal];
+        [pinchGestureLocal requireGestureRecognizerToFail:rotateGestureLocal];
+        
     }];
 }
 -(UIImage*)imageWithImage: (UIImage*) sourceImage scaledToWidth: (float) i_width
@@ -245,19 +271,19 @@
     UIGraphicsEndImageContext();
     return newImage;
 }
-////pinch
+////handle pinch
 - (void)handlePinch:(UIPinchGestureRecognizer *)recognizer{
 
     recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
     recognizer.scale = 1;
 }
-///rotate
+///handle rotate
 - (void)handleRotate:(UIRotationGestureRecognizer *)recognizer{
     
     recognizer.view.transform = CGAffineTransformRotate(recognizer.view.transform, recognizer.rotation);
     recognizer.rotation = 0;
 }
-///drag
+///handle drag
 -(void)moveImageView:(UIPanGestureRecognizer *)recognizer
 {
     
@@ -272,6 +298,12 @@
     [recognizer.view setCenter:newCenter];
     
 }
+-(void)pressImage:(UILongPressGestureRecognizer*)recognizer{
+    
+    UIImageView *imageView=(UIImageView*)[recognizer view];
+    [imageView removeFromSuperview];
+    
+}
 ////drag view delegate methods
 
 /////////////////////////////////////////////////////
@@ -281,7 +313,7 @@
     UILabel *label=[[UILabel alloc] init];
     [label setFrame:CGRectMake(200, 60, 200, 30)];
     label.text=@"Double Tap to edit";
-    //label.font=[UIFont fontWithName:@"Halvetica" size:FONT_SIZE];
+    label.textColor=[UIColor darkGrayColor];
     label.backgroundColor=[UIColor clearColor];
     label.userInteractionEnabled=YES;
     [self.BoundView addSubview:label];
@@ -300,10 +332,15 @@
     UILongPressGestureRecognizer *pressGestureLocal = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(pressLabel:)];
     pressGestureLocal.minimumPressDuration=1.0f;
     [label addGestureRecognizer:pressGestureLocal];
+    
+    ///////making easy to pan the text label
+    [panGestureLocal requireGestureRecognizerToFail:pinchGestureLocal];
+}
 
+- (IBAction)clearCanvasAction:(id)sender {
     
-    //////add pinch gesture on label
-    
+    [self.BoundView setBackgroundColor:[UIColor whiteColor]];
+    [[self.BoundView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
 -(IBAction)returned:(UIStoryboardSegue *)segue {
@@ -352,7 +389,7 @@
 
 - (IBAction)changeBackground:(id)sender {
     
-    UIActionSheet *actionSheet=[[UIActionSheet alloc] initWithTitle:@"Option" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Color",@"Templates", nil];
+    UIActionSheet *actionSheet=[[UIActionSheet alloc] initWithTitle:@"Option" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Solid Color",@"Templates", nil];
     actionSheet.tag=102;
     [actionSheet showInView:self.view];
     
@@ -362,7 +399,7 @@
 
     [UIView animateWithDuration:0.5f animations:^{
         
-        [self.TextureView setFrame:CGRectMake(0, 191, 480, 65)];
+        [self.TextureView setFrame:CGRectMake(0, 235, 480, 65)];
         
     }];
 }
@@ -371,7 +408,7 @@
 
     [UIView animateWithDuration:0.5f animations:^{
         
-        [self.TextureView setFrame:CGRectMake(0, 257, 480, 65)];
+        [self.TextureView setFrame:CGRectMake(0, 300, 480, 65)];
         
     }];
     
@@ -394,8 +431,12 @@
     UIImage * customScreenShot = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
+    UIImage *imageToSave =[UIImage imageWithCGImage:[customScreenShot CGImage]
+                        scale:1.0
+                  orientation: UIImageOrientationUp];
+    
     /* Save to the photo album */
-    UIImageWriteToSavedPhotosAlbum(customScreenShot , nil, nil, nil);
+    UIImageWriteToSavedPhotosAlbum(imageToSave , nil, nil, nil);
     
     [[[UIAlertView alloc] initWithTitle:@"Blitz Card" message:@"Image saved to photo album" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil]show];
 }

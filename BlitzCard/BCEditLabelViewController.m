@@ -49,7 +49,6 @@
     [self.colorArray addObject:[UIColor orangeColor]];
     [self.colorArray addObject:[UIColor blackColor]];
     [self.colorArray addObject:[UIColor darkGrayColor]];
-    [self.colorArray addObject:[UIColor lightGrayColor]];
     [self.colorArray addObject:[UIColor whiteColor]];
     [self.colorArray addObject:[UIColor cyanColor]];
     [self.colorArray addObject:[UIColor yellowColor]];
