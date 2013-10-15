@@ -12,6 +12,8 @@
 
 #define MIN_FONT_SIZE 12.0f
 #define FONT_SIZE 16.0f
+
+
 @interface BCViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate,BCEditLabelDelegate,BSColorSelectionDelegate>
 {
 
@@ -23,7 +25,7 @@
 - (void)handlePinch:(UIPinchGestureRecognizer *)recognizer;
 - (void)handleRotate:(UIRotationGestureRecognizer *)recognizer;
 
-@property(nonatomic, strong)  UIButton *tempImageView;
+@property(nonatomic, strong) UIButton *tempImageView;
 @property(nonatomic, strong) NSMutableArray *fileArray;
 @property(nonatomic, strong) NSMutableArray *thumbArray;
 @property(nonatomic, strong) UILabel *currentLabel;
@@ -47,11 +49,13 @@
 {
     [super viewDidLoad];
     
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
     self.fileArray=[[NSMutableArray alloc] init];
     self.thumbArray=[[NSMutableArray alloc] init];
     
     //////add instruction page on front
-    CGRect frame=CGRectMake(0, 0, 480, 320);
+    CGRect frame=CGRectMake(0, 20, 480, 320);
     _tempImageView=[UIButton buttonWithType:UIButtonTypeCustom];
     [_tempImageView setFrame:frame];
     [_tempImageView setImage:[UIImage imageNamed:@"AppBackground"] forState:UIControlStateNormal];
@@ -61,14 +65,14 @@
     [self.view addSubview:_tempImageView];    
     
     //////add all texture files file
-    for (int i=1; i<=79; i++) {
+    for (int i=1; i<=78; i++) {
         
         UIImage *fileImage=[UIImage imageNamed:[NSString stringWithFormat:@"texture%i",i]];
         [self.fileArray addObject:fileImage];
     }
     
     //////add all texture files file
-    for (int i=1; i<=79; i++) {
+    for (int i=1; i<=78; i++) {
         
         UIImage *thumbImage=[UIImage imageNamed:[NSString stringWithFormat:@"texture_thumb%i",i]];
         [self.thumbArray addObject:thumbImage];
@@ -170,6 +174,7 @@
                 if(buttonIndex == 1) {
                     
                     [self.imagePickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+                    
                 } else {
                     
                     if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
@@ -201,7 +206,7 @@
                     
                     ColorViewController *cvc=[[ColorViewController alloc] init];
                     cvc.delegate=self;
-                    [self presentModalViewController:cvc animated:YES];
+                    [self presentViewController:cvc animated:YES completion:nil];
                 }
                 else{
                 
@@ -252,8 +257,8 @@
         pressGestureLocal.minimumPressDuration=2.0f;
         [_dragImageView addGestureRecognizer:pressGestureLocal];
         
-        [panGestureLocal requireGestureRecognizerToFail:pinchGestureLocal];
-        [pinchGestureLocal requireGestureRecognizerToFail:rotateGestureLocal];
+        //[panGestureLocal requireGestureRecognizerToFail:pinchGestureLocal];
+        //[pinchGestureLocal requireGestureRecognizerToFail:rotateGestureLocal];
         
     }];
 }
@@ -334,7 +339,7 @@
     [label addGestureRecognizer:pressGestureLocal];
     
     ///////making easy to pan the text label
-    [panGestureLocal requireGestureRecognizerToFail:pinchGestureLocal];
+    //[panGestureLocal requireGestureRecognizerToFail:pinchGestureLocal];
 }
 
 - (IBAction)clearCanvasAction:(id)sender {
@@ -349,10 +354,7 @@
 }
 -(void)saveTextWith:(NSString *)text txtFont:(UIFont *)font txtColor:(UIColor *)txtColor{
 
-    //CGSize lLabelSIze = [text sizeWithFont:font forWidth:currentLabel.frame.size.width lineBreakMode:currentLabel.lineBreakMode];
-    
-    //currentLabel.frame = CGRectMake(currentLabel.frame.origin.x, currentLabel.frame.origin.y, MAX(150, lLabelSIze.width), lLabelSIze.height);
-    [currentLabel setMinimumFontSize:MIN_FONT_SIZE];
+    [currentLabel setMinimumScaleFactor:MIN_FONT_SIZE];
     [currentLabel setText:text];
     [currentLabel setFont:font];
     [currentLabel setTextColor:txtColor];
@@ -399,7 +401,8 @@
 
     [UIView animateWithDuration:0.5f animations:^{
         
-        [self.TextureView setFrame:CGRectMake(0, 235, 480, 65)];
+        
+        [self.TextureView setFrame:CGRectMake(0, 255, self.view.frame.size.width, 65)];
         
     }];
 }
@@ -408,7 +411,7 @@
 
     [UIView animateWithDuration:0.5f animations:^{
         
-        [self.TextureView setFrame:CGRectMake(0, 300, 480, 65)];
+        [self.TextureView setFrame:CGRectMake(0, 320, self.view.frame.size.width, 65)];
         
     }];
     
@@ -425,7 +428,7 @@
     UIGraphicsEndImageContext();
     
     /* Render the screen shot at custom resolution */
-    CGRect cropRect = CGRectMake(0 ,0 ,960 ,512);
+    CGRect cropRect = self.view.frame;
     UIGraphicsBeginImageContextWithOptions(cropRect.size, captureView.opaque, 1.0f);
     [screenshot drawInRect:cropRect];
     UIImage * customScreenShot = UIGraphicsGetImageFromCurrentImageContext();
@@ -438,9 +441,8 @@
     /* Save to the photo album */
     UIImageWriteToSavedPhotosAlbum(imageToSave , nil, nil, nil);
     
-    [[[UIAlertView alloc] initWithTitle:@"Blitz Card" message:@"Image saved to photo album" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil]show];
+    [[[UIAlertView alloc] initWithTitle:@"digiBiz Card" message:@"Image saved to photo album" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil]show];
 }
-
 
 
 - (void)didReceiveMemoryWarning

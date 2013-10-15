@@ -1,9 +1,8 @@
-/*
- By: Justin Meiners
- 
- Copyright (c) 2013 Inline Studios
- Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
- */
+
+//  digiBiz Card
+//
+//  Created by PAWAN RAI on 9/20/13.
+//  Copyright (c) 2013 AppStudioz. All rights reserved.
 
 #import "ColorViewController.h"
 #import <QuartzCore/QuartzCore.h>
@@ -63,8 +62,7 @@
     
     /////////add a done button
     UIButton *doneButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [doneButton setFrame:CGRectMake(10, 5, 70, 40)];
-    [doneButton setTintColor:[UIColor grayColor]];
+    [doneButton setFrame:CGRectMake(0, 15, 70, 40)];
     [doneButton setTitle:@"Done" forState:UIControlStateNormal];
     [doneButton addTarget:self action:@selector(colorSelectionDone:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:doneButton];
@@ -74,7 +72,7 @@
 
     [self.delegate finishWithColorSelection:_colorWheel.currentColor];
     
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)changeBrightness:(UISlider*)sender
@@ -88,6 +86,8 @@
 {
     [_wellView setBackgroundColor:_colorWheel.currentColor];
 }
-
+- (NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskLandscape;
+}
 
 @end

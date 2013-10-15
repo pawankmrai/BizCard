@@ -12,9 +12,9 @@
 #define FONT_SIZE 16.0f
 @interface BCEditLabelViewController () <UITextFieldDelegate>
 {
-
     UIColor *txtColor;
     UIFont *txtFont;
+
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *fontScrollView;
@@ -31,6 +31,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
     
     self.txtField.text=self.textToEdit;
     
@@ -171,17 +174,6 @@
     [self.fontArray addObject:font57];
     
     
-    ////add default system fonts
-//    for(NSString* family in [UIFont familyNames]) {
-//        for(NSString* name in [UIFont fontNamesForFamilyName: family]) {
-//            
-//            //NSLog(@"  %@", name);
-//            [self.fontArray addObject:name];
-//            
-//        }
-//    }
-
-    
     /////add custom fonts here
     
     [self createScrollforFont:self.fontArray];
@@ -198,12 +190,12 @@
             btn.backgroundColor=[UIColor blackColor];
             UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(xOffset+2, 65, 60, 35)];
             lbl.font=[UIFont systemFontOfSize:12];
-            lbl.lineBreakMode=UILineBreakModeWordWrap;
+            lbl.lineBreakMode=NSLineBreakByWordWrapping;
             lbl.text=[font fontName];
             lbl.numberOfLines=0;
             lbl.backgroundColor=[UIColor clearColor];
             lbl.textColor=[UIColor whiteColor];
-            lbl.textAlignment=UITextAlignmentCenter;
+            lbl.textAlignment=NSTextAlignmentCenter;
             [btn setTitle:@"AaBb" forState:UIControlStateNormal];
             btn.titleLabel.font=font;
             btn.tag=tag;
@@ -262,14 +254,6 @@
     UIColor *textColor=[self.colorArray objectAtIndex:[sender tag]];
     txtColor=textColor;
     [self.txtField setTextColor:textColor];
-//    /////inverse the text field background color
-//    const CGFloat *componentColors = CGColorGetComponents(textColor.CGColor);
-//    
-//    UIColor *revColor = [[UIColor alloc] initWithRed:(1.0 - componentColors[0])
-//                                               green:(1.0 - componentColors[1])
-//                                                blue:(1.0 - componentColors[2])
-//                                               alpha:componentColors[3]];
-//    [self.txtField setBackgroundColor:revColor];
 }
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSUInteger newLength = [textField.text length] + [string length] - range.length;
@@ -285,6 +269,7 @@
     [self.delegate saveTextWith:[self.txtField text] txtFont:txtFont txtColor:txtColor];
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
