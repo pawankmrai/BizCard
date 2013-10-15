@@ -27,7 +27,6 @@
 
 @property(nonatomic, strong) UIButton *tempImageView;
 @property(nonatomic, strong) NSMutableArray *fileArray;
-@property(nonatomic, strong) NSMutableArray *thumbArray;
 @property(nonatomic, strong) UILabel *currentLabel;
 @property (weak, nonatomic) IBOutlet UIView *BoundView;
 @property (weak, nonatomic) IBOutlet UIScrollView *ScrollView;
@@ -47,37 +46,42 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    
-    
+    [super viewDidLoad];    
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
-    self.fileArray=[[NSMutableArray alloc] init];
-    self.thumbArray=[[NSMutableArray alloc] init];
+    self.fileArray=[NSMutableArray array];
+    
+    NSString *fileName;
+    if (IS_IPHONE_5) {
+        
+        fileName=@"AppBackground-5";
+    }
+    else{
+     fileName=@"AppBackground";
+    }
     
     //////add instruction page on front
-    CGRect frame=CGRectMake(0, 20, 480, 320);
+    CGRect frame=CGRectMake(0, 0, self.view.frame.size.height, 320);
+    
     _tempImageView=[UIButton buttonWithType:UIButtonTypeCustom];
     [_tempImageView setFrame:frame];
-    [_tempImageView setImage:[UIImage imageNamed:@"AppBackground"] forState:UIControlStateNormal];
+    [_tempImageView setImage:[UIImage imageNamed:fileName] forState:UIControlStateNormal];
+    [_tempImageView setContentMode:UIViewContentModeScaleToFill];
     //////add action
     [_tempImageView addTarget:self action:@selector(tapTempImageView:) forControlEvents:UIControlEventTouchUpInside];
 
     [self.view addSubview:_tempImageView];    
     
-    //////add all texture files file
-    for (int i=1; i<=78; i++) {
-        
-        UIImage *fileImage=[UIImage imageNamed:[NSString stringWithFormat:@"texture%i",i]];
-        [self.fileArray addObject:fileImage];
+    ///////get all image with different thread
+    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
+    {
+        for (int i=0; i<=140; i++) {
+            UIImage *fileImage=[UIImage imageNamed:[NSString stringWithFormat:@"texture_thumb%i",i]];
+            [self.fileArray addObject:fileImage];
+        }
+        [self createScrollforThumb:self.fileArray];
     }
-    
+    //);
     //////add all texture files file
-    for (int i=1; i<=78; i++) {
-        
-        UIImage *thumbImage=[UIImage imageNamed:[NSString stringWithFormat:@"texture_thumb%i",i]];
-        [self.thumbArray addObject:thumbImage];
-    }
-    [self createScrollforThumb:self.thumbArray];
 }
 -(void)tapTempImageView:(UIButton*)recognizer{
 
@@ -120,17 +124,25 @@
 }
 -(void)performTextureEffect:(UIButton*)sender{
     
+    ////create a file name
+    NSMutableString *fileName=[NSMutableString stringWithFormat:@"texture%i",[sender tag]];
+    if (IS_IPHONE_5) {
+        [fileName appendString:@"-5"];
+    }
+    //NSLog(@"file name--%@", fileName);
+    //////////check to see if last button pressed
     BOOL Check=[sender tag]==[self.fileArray count];
     if (Check) {
         
         [self.BoundView setBackgroundColor:[UIColor whiteColor]];
     }
     else{
-        UIImage *image=[self.fileArray objectAtIndex:[sender tag]];
-    
+        
+        UIImage *image=[UIImage imageNamed:fileName];
         [self.BoundView setBackgroundColor:[UIColor colorWithPatternImage:image]];
     }
-    
+    //NSLog(@"Bound frame--%@",NSStringFromCGRect(self.BoundView.frame));
+
 }
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
 
@@ -401,7 +413,11 @@
 
     [UIView animateWithDuration:0.5f animations:^{
         
-        
+        if (!SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+            
+            [self.TextureView setFrame:CGRectMake(0, 255-20, self.view.frame.size.width, 65)];
+        }
+        else
         [self.TextureView setFrame:CGRectMake(0, 255, self.view.frame.size.width, 65)];
         
     }];
@@ -443,7 +459,9 @@
     
     [[[UIAlertView alloc] initWithTitle:@"digiBiz Card" message:@"Image saved to photo album" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil]show];
 }
-
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 
 - (void)didReceiveMemoryWarning
 {

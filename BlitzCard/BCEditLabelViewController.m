@@ -269,7 +269,9 @@
     [self.delegate saveTextWith:[self.txtField text] txtFont:txtFont txtColor:txtColor];
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+- (BOOL)prefersStatusBarHidden {
+    return YES;
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
