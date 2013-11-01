@@ -13,10 +13,8 @@
 #define MIN_FONT_SIZE 12.0f
 #define FONT_SIZE 16.0f
 
-
 @interface BCViewController ()<UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate,BCEditLabelDelegate,BSColorSelectionDelegate>
 {
-
     CGFloat beginX;
     CGFloat beginY;
     UILabel *currentLabel;
@@ -25,14 +23,17 @@
 - (void)handlePinch:(UIPinchGestureRecognizer *)recognizer;
 - (void)handleRotate:(UIRotationGestureRecognizer *)recognizer;
 
+@property (weak, nonatomic) IBOutlet UIView *ContainerView;
 @property(nonatomic, strong) UIButton *tempImageView;
 @property(nonatomic, strong) NSMutableArray *fileArray;
 @property(nonatomic, strong) UILabel *currentLabel;
 @property (weak, nonatomic) IBOutlet UIView *BoundView;
+@property (weak, nonatomic) IBOutlet UIImageView *BoundImageView;
 @property (weak, nonatomic) IBOutlet UIScrollView *ScrollView;
 @property (weak, nonatomic) IBOutlet UIView *TextureView;
 @property (strong, nonatomic) UIImagePickerController *imagePickerController;
 @property (strong, nonatomic) UIImageView *dragImageView;
+
 - (IBAction)addImageAction:(id)sender;
 - (IBAction)changeBackground:(id)sender;
 - (IBAction)saveAction:(id)sender;
@@ -48,15 +49,30 @@
 {
     [super viewDidLoad];    
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
-    self.fileArray=[NSMutableArray array];
+    self.fileArray=[[NSMutableArray alloc] initWithCapacity:142];
     
     NSString *fileName;
+    
     if (IS_IPHONE_5) {
         
-        fileName=@"AppBackground-5";
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+            
+            fileName=@"Instructions5";
+        }
+        else{
+            
+            fileName=@"AppBackground-5";
+        }
     }
     else{
-     fileName=@"AppBackground";
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0")) {
+            
+            fileName=@"Instructions";
+        }
+        else{
+        
+            fileName=@"AppBackground";
+        }
     }
     
     //////add instruction page on front
@@ -68,20 +84,30 @@
     [_tempImageView setContentMode:UIViewContentModeScaleToFill];
     //////add action
     [_tempImageView addTarget:self action:@selector(tapTempImageView:) forControlEvents:UIControlEventTouchUpInside];
-
-    [self.view addSubview:_tempImageView];    
     
-    ///////get all image with different thread
-    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^
-    {
-        for (int i=0; i<=140; i++) {
+    [self.view addSubview:_tempImageView];
+    
+    [self createScrollforThumb:[self loadThumbnailImages]];
+}
+-(NSArray*)loadThumbnailImages{
+
+    NSMutableArray *array=[NSMutableArray array];
+    
+        for (int i=0; i<=141; i++) {
+            
             UIImage *fileImage=[UIImage imageNamed:[NSString stringWithFormat:@"texture_thumb%i",i]];
-            [self.fileArray addObject:fileImage];
+            if ([fileImage isKindOfClass:[UIImage class]]) {
+                
+                [array addObject:fileImage];
+            }
+            else{
+            
+                NSLog(@"bad image found--%@\ni--%i",fileImage,i);
+            }
+            
         }
-        [self createScrollforThumb:self.fileArray];
-    }
-    //);
-    //////add all texture files file
+    
+    return array;
 }
 -(void)tapTempImageView:(UIButton*)recognizer{
 
@@ -124,26 +150,34 @@
 }
 -(void)performTextureEffect:(UIButton*)sender{
     
+    [self.BoundView setBackgroundColor:[UIColor clearColor]];
     ////create a file name
-    NSMutableString *fileName=[NSMutableString stringWithFormat:@"texture%i",[sender tag]];
-    if (IS_IPHONE_5) {
-        [fileName appendString:@"-5"];
+    NSString *fileName;
+    
+    if (IS_IPHONE_5)
+    {
+        fileName=[NSString stringWithFormat:@"texture5-%i",[sender tag]];
     }
-    //NSLog(@"file name--%@", fileName);
+    else
+    {
+        fileName=[NSString stringWithFormat:@"texture%i",[sender tag]];
+    }
+    
+    NSLog(@"file name--%@", fileName);
     //////////check to see if last button pressed
-    BOOL Check=[sender tag]==[self.fileArray count];
-    if (Check) {
-        
-        [self.BoundView setBackgroundColor:[UIColor whiteColor]];
+    BOOL Check=[sender tag]==142;
+    if (Check)
+    {
+        [self.BoundImageView setImage:nil];
+        [self.BoundView setBackgroundColor:[UIColor clearColor]];
     }
     else{
         
         UIImage *image=[UIImage imageNamed:fileName];
-        [self.BoundView setBackgroundColor:[UIColor colorWithPatternImage:image]];
+        [self.BoundImageView setImage:image];
     }
-    //NSLog(@"Bound frame--%@",NSStringFromCGRect(self.BoundView.frame));
-
 }
+
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
 
     if ([[segue identifier] isEqualToString:@"editTextLabel"]) {
@@ -224,10 +258,7 @@
                 
                     [self showTextureView:actionSheet];
                 }
-                
             }
-                
-                
             default:
                 break;
         }
@@ -299,6 +330,7 @@
     
     recognizer.view.transform = CGAffineTransformRotate(recognizer.view.transform, recognizer.rotation);
     recognizer.rotation = 0;
+    
 }
 ///handle drag
 -(void)moveImageView:(UIPanGestureRecognizer *)recognizer
@@ -333,6 +365,7 @@
     label.textColor=[UIColor darkGrayColor];
     label.backgroundColor=[UIColor clearColor];
     label.userInteractionEnabled=YES;
+    [label sizeToFit];
     [self.BoundView addSubview:label];
     //////add pan getsture on each label
     UIPanGestureRecognizer *panGestureLocal = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveLabel:)];
@@ -356,7 +389,8 @@
 
 - (IBAction)clearCanvasAction:(id)sender {
     
-    [self.BoundView setBackgroundColor:[UIColor whiteColor]];
+    [self.BoundView setBackgroundColor:nil];
+    [self.BoundImageView setImage:nil];
     [[self.BoundView subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
 }
 
@@ -435,7 +469,7 @@
 
 - (IBAction)saveAction:(id)sender {
     
-    UIView* captureView = self.BoundView;
+    UIView* captureView = self.ContainerView;
     
     /* Capture the screen shoot at native resolution */
     UIGraphicsBeginImageContextWithOptions(captureView.bounds.size, captureView.opaque, 0.0);
@@ -457,9 +491,10 @@
     /* Save to the photo album */
     UIImageWriteToSavedPhotosAlbum(imageToSave , nil, nil, nil);
     
-    [[[UIAlertView alloc] initWithTitle:@"digiBiz Card" message:@"Image saved to photo album" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil]show];
+    [[[UIAlertView alloc] initWithTitle:@"digiBiz Card" message:@"Image saved to photo album" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
 }
 - (BOOL)prefersStatusBarHidden {
+    
     return YES;
 }
 

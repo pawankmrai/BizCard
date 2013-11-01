@@ -10,11 +10,11 @@
             <objects>
                 <viewController id="2" customClass="BCViewController" sceneMemberID="viewController">
                     <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="11k-Mq-LMt">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="568" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <items>
                                     <barButtonItem title="Background" id="B8Y-OJ-zWz">
@@ -50,21 +50,32 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <view clipsSubviews="YES" contentMode="scaleAspectFit" id="m1P-ku-ueg">
-                                <rect key="frame" x="0.0" y="44" width="480" height="276"/>
+                            <view contentMode="scaleToFill" id="2V6-Em-pXf">
+                                <rect key="frame" x="0.0" y="44" width="567" height="274"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="79f-64-x40">
+                                        <rect key="frame" x="0.0" y="0.0" width="568" height="276"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <view clipsSubviews="YES" contentMode="scaleAspectFit" id="m1P-ku-ueg">
+                                        <rect key="frame" x="0.0" y="0.0" width="568" height="276"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="kCV-5Q-35v">
-                                <rect key="frame" x="0.0" y="340" width="480" height="85"/>
+                                <rect key="frame" x="0.0" y="340" width="568" height="85"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="DUi-Of-jS0">
-                                        <rect key="frame" x="0.0" y="0.0" width="400" height="85"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="488" height="85"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </scrollView>
                                     <button opaque="NO" tag="106" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="I1x-bA-AgM">
-                                        <rect key="frame" x="413" y="10" width="60" height="45"/>
+                                        <rect key="frame" x="501" y="10" width="60" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
@@ -90,7 +101,9 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="UGM-Fo-8GJ"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="BoundImageView" destination="79f-64-x40" id="hZq-7S-7f3"/>
                         <outlet property="BoundView" destination="m1P-ku-ueg" id="MxJ-xl-pTG"/>
+                        <outlet property="ContainerView" destination="2V6-Em-pXf" id="wOR-9H-edl"/>
                         <outlet property="ScrollView" destination="DUi-Of-jS0" id="1nk-fZ-r63"/>
                         <outlet property="TextureView" destination="kCV-5Q-35v" id="XfR-yR-tan"/>
                         <segue destination="ERw-2D-agq" kind="push" identifier="editTextLabel" id="eAv-Yn-fi6"/>
@@ -105,11 +118,11 @@
             <objects>
                 <viewController id="ERw-2D-agq" customClass="BCEditLabelViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FvJ-2F-J6X">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Uq0-RQ-JaI">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="568" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <items>
                                     <barButtonItem title="Cancel" id="kiD-EI-YSd">
@@ -126,7 +139,7 @@
                                 </items>
                             </toolbar>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0123456789012345678901234567890123456789" borderStyle="bezel" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" id="eXK-Ba-5DL">
-                                <rect key="frame" x="76" y="80" width="327" height="30"/>
+                                <rect key="frame" x="76" y="80" width="415" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -136,22 +149,22 @@
                                 </connections>
                             </textField>
                             <view contentMode="scaleToFill" id="uNC-4O-JaW">
-                                <rect key="frame" x="0.0" y="141" width="480" height="85"/>
+                                <rect key="frame" x="0.0" y="141" width="568" height="85"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="black" id="3Oz-yA-2Sf">
-                                        <rect key="frame" x="0.0" y="0.0" width="480" height="85"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="568" height="85"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </scrollView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view contentMode="scaleToFill" id="071-d3-dG2">
-                                <rect key="frame" x="0.0" y="234" width="480" height="85"/>
+                                <rect key="frame" x="0.0" y="234" width="568" height="85"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="black" id="8JJ-B6-E32">
-                                        <rect key="frame" x="0.0" y="0.0" width="480" height="85"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="568" height="85"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </scrollView>
                                 </subviews>
@@ -199,11 +212,11 @@
             <objects>
                 <viewController id="rAN-Dd-r48" customClass="BCInfoViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="62n-aq-yb3">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="eQN-T5-BQj">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="568" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="GoU-t9-1mP"/>
@@ -215,7 +228,7 @@
                                 </items>
                             </toolbar>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="uTz-bH-Dzd">
-                                <rect key="frame" x="0.0" y="44" width="480" height="276"/>
+                                <rect key="frame" x="0.0" y="44" width="568" height="276"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <string key="text">INSTRUCTIONS:
@@ -368,6 +381,6 @@ BENEFITS:
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
 </document>
