@@ -7,14 +7,14 @@
 //
 
 #import "BCAppDelegate.h"
-#import <Crashlytics/Crashlytics.h>
+
 @implementation BCAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //[[UIApplication sharedApplication] setStatusBarHidden:YES];
-    // Override point for customization after application launch.
-    [Crashlytics startWithAPIKey:@"affc97ca56d4c13fa8d99275152115c559b8ca1c"];
+    // Override point for customization after application launch
+    
     return YES;
 }
 							

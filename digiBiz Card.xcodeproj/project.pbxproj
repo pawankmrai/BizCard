@@ -11,7 +11,6 @@
 		2342CFF9181ECF7300B099D2 /* texture5-30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2342CFF8181ECF7300B099D2 /* texture5-30@2x.png */; };
 		2342CFFB181ED8CC00B099D2 /* texture_thumb30.png in Resources */ = {isa = PBXBuildFile; fileRef = 2342CFFA181ED8CC00B099D2 /* texture_thumb30.png */; };
 		2342CFFD181EE80E00B099D2 /* texture30.png in Resources */ = {isa = PBXBuildFile; fileRef = 2342CFFC181EE80E00B099D2 /* texture30.png */; };
-		2342CFFF181EEC1200B099D2 /* texture32.png in Resources */ = {isa = PBXBuildFile; fileRef = 2342CFFE181EEC1200B099D2 /* texture32.png */; };
 		2342D001181EEC6800B099D2 /* texture30@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2342D000181EEC6800B099D2 /* texture30@2x.png */; };
 		2342D011181EEE1600B099D2 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 2342D002181EEE1600B099D2 /* Icon-72.png */; };
 		2342D012181EEE1600B099D2 /* Icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2342D003181EEE1600B099D2 /* Icon-72@2x.png */; };
@@ -85,6 +84,7 @@
 		23924CB1180920BB00A3B8FF /* SF Telegraphic Light Bold.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 23924C78180920BB00A3B8FF /* SF Telegraphic Light Bold.TTF */; };
 		23924CB2180920BB00A3B8FF /* SF Telegraphic Light Italic.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 23924C79180920BB00A3B8FF /* SF Telegraphic Light Italic.TTF */; };
 		23924CB3180920BB00A3B8FF /* SF Telegraphic Light.TTF in Resources */ = {isa = PBXBuildFile; fileRef = 23924C7A180920BB00A3B8FF /* SF Telegraphic Light.TTF */; };
+		2397788A192FA6FD005F3F92 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 23977889192FA6FD005F3F92 /* QuartzCore.framework */; };
 		239AF9DD181283DE0041801F /* texture0.png in Resources */ = {isa = PBXBuildFile; fileRef = 239AF7A2181283DD0041801F /* texture0.png */; };
 		239AF9DE181283DE0041801F /* texture1.png in Resources */ = {isa = PBXBuildFile; fileRef = 239AF7A3181283DD0041801F /* texture1.png */; };
 		239AF9DF181283DE0041801F /* texture10.png in Resources */ = {isa = PBXBuildFile; fileRef = 239AF7A4181283DD0041801F /* texture10.png */; };
@@ -674,8 +674,6 @@
 		A18C9FCC17A938AD00898A23 /* AppBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A18C9FC917A938AD00898A23 /* AppBackground@2x.png */; };
 		A18C9FCD17A938AD00898A23 /* AppBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A18C9FCA17A938AD00898A23 /* AppBackground.png */; };
 		A18C9FCE17A938AD00898A23 /* AppBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = A18C9FCA17A938AD00898A23 /* AppBackground.png */; };
-		A18C9FD117A93F3E00898A23 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18C9FD017A93F3E00898A23 /* Crashlytics.framework */; };
-		A18C9FD217A93F3E00898A23 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18C9FD017A93F3E00898A23 /* Crashlytics.framework */; };
 		A19B5CC117A01396009EF2EF /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A19B5CC017A01396009EF2EF /* UIKit.framework */; };
 		A19B5CC317A01396009EF2EF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A19B5CC217A01396009EF2EF /* Foundation.framework */; };
 		A19B5CC517A01396009EF2EF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A19B5CC417A01396009EF2EF /* CoreGraphics.framework */; };
@@ -780,6 +778,7 @@
 		23924C78180920BB00A3B8FF /* SF Telegraphic Light Bold.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF Telegraphic Light Bold.TTF"; sourceTree = "<group>"; };
 		23924C79180920BB00A3B8FF /* SF Telegraphic Light Italic.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF Telegraphic Light Italic.TTF"; sourceTree = "<group>"; };
 		23924C7A180920BB00A3B8FF /* SF Telegraphic Light.TTF */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF Telegraphic Light.TTF"; sourceTree = "<group>"; };
+		23977889192FA6FD005F3F92 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		239AF7A2181283DD0041801F /* texture0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture0.png; sourceTree = "<group>"; };
 		239AF7A3181283DD0041801F /* texture1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture1.png; sourceTree = "<group>"; };
 		239AF7A4181283DD0041801F /* texture10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = texture10.png; sourceTree = "<group>"; };
@@ -1366,7 +1365,6 @@
 		A187886817A6806E00FF1486 /* ColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorViewController.m; sourceTree = "<group>"; };
 		A18C9FC917A938AD00898A23 /* AppBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "AppBackground@2x.png"; sourceTree = "<group>"; };
 		A18C9FCA17A938AD00898A23 /* AppBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppBackground.png; sourceTree = "<group>"; };
-		A18C9FD017A93F3E00898A23 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		A19B5CBD17A01396009EF2EF /* digiBiz Card.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "digiBiz Card.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A19B5CC017A01396009EF2EF /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A19B5CC217A01396009EF2EF /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -1375,7 +1373,7 @@
 		A19B5CCA17A01396009EF2EF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A19B5CCC17A01396009EF2EF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A19B5CCE17A01396009EF2EF /* digiBiz Card-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "digiBiz Card-Prefix.pch"; sourceTree = "<group>"; };
-		A19B5CCF17A01396009EF2EF /* BCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCAppDelegate.h; sourceTree = "<group>"; };
+		A19B5CCF17A01396009EF2EF /* BCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BCAppDelegate.h; path = BlitzCard/BCAppDelegate.h; sourceTree = "<group>"; };
 		A19B5CD017A01396009EF2EF /* BCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCAppDelegate.m; sourceTree = "<group>"; };
 		A19B5CD917A01396009EF2EF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		A19B5CDB17A01396009EF2EF /* BCViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BCViewController.h; sourceTree = "<group>"; };
@@ -1393,6 +1391,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2397788A192FA6FD005F3F92 /* QuartzCore.framework in Frameworks */,
 				23A176BE17ECC639008C4ACE /* AdSupport.framework in Frameworks */,
 				23A176BC17ECC630008C4ACE /* SystemConfiguration.framework in Frameworks */,
 				23A176BA17ECC627008C4ACE /* MessageUI.framework in Frameworks */,
@@ -1401,7 +1400,6 @@
 				A19B5CC117A01396009EF2EF /* UIKit.framework in Frameworks */,
 				A19B5CC317A01396009EF2EF /* Foundation.framework in Frameworks */,
 				A19B5CC517A01396009EF2EF /* CoreGraphics.framework in Frameworks */,
-				A18C9FD117A93F3E00898A23 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1412,7 +1410,6 @@
 				A19B5CE517A01396009EF2EF /* SenTestingKit.framework in Frameworks */,
 				A19B5CE617A01396009EF2EF /* UIKit.framework in Frameworks */,
 				A19B5CE717A01396009EF2EF /* Foundation.framework in Frameworks */,
-				A18C9FD217A93F3E00898A23 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2172,6 +2169,7 @@
 		A19B5CB417A01396009EF2EF = {
 			isa = PBXGroup;
 			children = (
+				A19B5CCF17A01396009EF2EF /* BCAppDelegate.h */,
 				A19B5CC617A01396009EF2EF /* BlitzCard */,
 				A19B5CEA17A01396009EF2EF /* BlitzCardTests */,
 				A19B5CBF17A01396009EF2EF /* Frameworks */,
@@ -2191,12 +2189,12 @@
 		A19B5CBF17A01396009EF2EF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				23977889192FA6FD005F3F92 /* QuartzCore.framework */,
 				23A176BD17ECC639008C4ACE /* AdSupport.framework */,
 				23A176BB17ECC630008C4ACE /* SystemConfiguration.framework */,
 				23A176B917ECC627008C4ACE /* MessageUI.framework */,
 				23A176B717ECC61F008C4ACE /* AudioToolbox.framework */,
 				23A176B517ECC615008C4ACE /* StoreKit.framework */,
-				A18C9FD017A93F3E00898A23 /* Crashlytics.framework */,
 				A19B5CC017A01396009EF2EF /* UIKit.framework */,
 				A19B5CC217A01396009EF2EF /* Foundation.framework */,
 				A19B5CC417A01396009EF2EF /* CoreGraphics.framework */,
@@ -2211,7 +2209,6 @@
 				239245431807E80000699996 /* Artwork */,
 				239AF7A0181283DD0041801F /* DigiBiz_Temps_NEWEST */,
 				23924C41180920BB00A3B8FF /* Font Source */,
-				A19B5CCF17A01396009EF2EF /* BCAppDelegate.h */,
 				A19B5CD017A01396009EF2EF /* BCAppDelegate.m */,
 				A19B5CD817A01396009EF2EF /* MainStoryboard.storyboard */,
 				23C30C2917FD4FBD00744782 /* Base Navigation */,
@@ -2280,7 +2277,6 @@
 				A19B5CB917A01396009EF2EF /* Sources */,
 				A19B5CBA17A01396009EF2EF /* Frameworks */,
 				A19B5CBB17A01396009EF2EF /* Resources */,
-				A18C9FCF17A93F2000898A23 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2317,13 +2313,9 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = BC;
-				LastUpgradeCheck = 0460;
+				LastTestingUpgradeCheck = 0510;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = AppStudioz;
-				TargetAttributes = {
-					A19B5CBC17A01396009EF2EF = {
-						DevelopmentTeam = 4ZU7TM6UYQ;
-					};
-				};
 			};
 			buildConfigurationList = A19B5CB817A01396009EF2EF /* Build configuration list for PBXProject "digiBiz Card" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -2772,7 +2764,6 @@
 				2342D017181EEE1600B099D2 /* Icon-Small-50.png in Resources */,
 				239AFA41181283DE0041801F /* texture61.png in Resources */,
 				239AFC00181283DE0041801F /* texture_thumb80.png in Resources */,
-				2342CFFF181EEC1200B099D2 /* texture32.png in Resources */,
 				239AFA50181283DE0041801F /* texture75.png in Resources */,
 				239AFC01181283DE0041801F /* texture_thumb81.png in Resources */,
 				239AFB8B181283DE0041801F /* texture_thumb101.png in Resources */,
@@ -3018,19 +3009,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A18C9FCF17A93F2000898A23 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "./Crashlytics.framework/run affc97ca56d4c13fa8d99275152115c559b8ca1c";
-		};
 		A19B5CE117A01396009EF2EF /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3176,24 +3154,26 @@
 		A19B5CF617A01397009EF2EF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: shane gayer (Q2YV8QS7SC)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: shane gayer (Q2YV8QS7SC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					/Users/itrentalindia/Desktop/Arvind/BlitzCard,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlitzCard/digiBiz Card-Prefix.pch";
 				INFOPLIST_FILE = "BlitzCard/digiBiz Card-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/BlitzCard\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "digiBiz Card";
-				PROVISIONING_PROFILE = "1DD244F4-08E6-44E5-A178-5D11181183F9";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1DD244F4-08E6-44E5-A178-5D11181183F9";
+				PROVISIONING_PROFILE = "BC0A5BFE-4FC0-421E-A16D-81329606306D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BC0A5BFE-4FC0-421E-A16D-81329606306D";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -3201,16 +3181,17 @@
 		A19B5CF717A01397009EF2EF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: shane gayer (Q2YV8QS7SC)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: shane gayer (Q2YV8QS7SC)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
+					"$(SRCROOT)",
+					/Users/itrentalindia/Desktop/Arvind/BlitzCard,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BlitzCard/digiBiz Card-Prefix.pch";
 				INFOPLIST_FILE = "BlitzCard/digiBiz Card-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/BlitzCard\"",
@@ -3218,8 +3199,9 @@
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "digiBiz Card";
-				PROVISIONING_PROFILE = "1DD244F4-08E6-44E5-A178-5D11181183F9";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1DD244F4-08E6-44E5-A178-5D11181183F9";
+				PROVISIONING_PROFILE = "BC0A5BFE-4FC0-421E-A16D-81329606306D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BC0A5BFE-4FC0-421E-A16D-81329606306D";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

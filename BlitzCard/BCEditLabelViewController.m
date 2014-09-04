@@ -34,8 +34,9 @@
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    
-    self.txtField.text=self.textToEdit;
+    [self saveLabelTextWith:_textToEdit txtFont:_textToFont txtColor:_textToColor];
+    //self.txtField.text=self.textToEdit;
+   
     
     if (self.fontArray==nil) {
         _fontArray=[[NSMutableArray alloc] init];
@@ -188,7 +189,7 @@
         
             UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
             btn.backgroundColor=[UIColor blackColor];
-            UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(xOffset+2, 65, 60, 35)];
+            UILabel *lbl = [[UILabel alloc] initWithFrame:CGRectMake(xOffset+2, 73, 60, 35)];
             lbl.font=[UIFont systemFontOfSize:12];
             lbl.lineBreakMode=NSLineBreakByWordWrapping;
             lbl.text=[font fontName];
@@ -205,13 +206,15 @@
             [layer1 setBorderWidth:2.0f];
             [layer1 setBorderColor:[[UIColor blackColor] CGColor]];
             
-            btn.frame = CGRectMake(xOffset, 5, 60, 55);
+            //btn.frame = CGRectMake(xOffset, 5, 60, 55);
+            btn.frame = CGRectMake(xOffset, 5, 70, 65);
             [btn addTarget:self action:@selector(performFontEffect:) forControlEvents:UIControlEventTouchUpInside];
             [self.fontScrollView addSubview:btn];
             [self.fontScrollView addSubview:lbl];
-            xOffset+=70;
+            xOffset+=80;
             tag++;        
     }
+    
     xOffset+=70;
     
     self.fontScrollView.contentSize=CGSizeMake(xOffset, 65);
@@ -238,11 +241,12 @@
         [layer1 setCornerRadius:7.0];
         [layer1 setBorderWidth:1.0];
         [layer1 setBorderColor:[[UIColor blackColor] CGColor]];
-        
-        btn.frame = CGRectMake(xOffset, 5, 60, 55);
+       //  btn.frame = CGRectMake(xOffset, 5, 60, 55);
+        btn.frame = CGRectMake(xOffset, 5, 70, 65);
         [btn addTarget:self action:@selector(performColorEffect:) forControlEvents:UIControlEventTouchUpInside];
         [self.colorScrollView addSubview:btn];
-        xOffset+=70;
+        //xOffset+=70;
+        xOffset+=80;
         tag++;
     }
     xOffset+=70;
@@ -266,8 +270,19 @@
 }
 - (IBAction)txtSaveAction:(id)sender {
     
-    [self.delegate saveTextWith:[self.txtField text] txtFont:txtFont txtColor:txtColor];
+    //[self.delegate saveTextWith:[self.txtField text] txtFont:txtFont txtColor:txtColor];
+    [self.delegate saveTextWith:[self.txtField text] txtFont:self.txtField.font txtColor:self.txtField.textColor];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)saveLabelTextWith:(NSString *)text txtFont:(UIFont *)font txtColor:(UIColor *)textColor{
+    
+   // [currentLabel setMinimumScaleFactor:MIN_FONT_SIZE];
+    [self.txtField setText:text];
+    [self.txtField setFont:font];
+    [self.txtField setTextColor:textColor];
+    [self.txtField sizeToFit];         // For Adjust the Width of label
+    
 }
 - (BOOL)prefersStatusBarHidden {
     return YES;

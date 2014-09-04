@@ -62,8 +62,10 @@
     
     /////////add a done button
     UIButton *doneButton=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [doneButton setFrame:CGRectMake(0, 15, 70, 40)];
+    [doneButton setFrame:CGRectMake(5, 15, 70, 40)];
     [doneButton setTitle:@"Done" forState:UIControlStateNormal];
+    doneButton.layer.borderWidth = 1.0;
+    doneButton.layer.borderColor =[UIColor blackColor].CGColor;
     [doneButton addTarget:self action:@selector(colorSelectionDone:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:doneButton];
 }

@@ -18,14 +18,18 @@
     CGFloat beginX;
     CGFloat beginY;
     UILabel *currentLabel;
+    UILabel *label;
+    UIImagePickerController *pickerController;
 }
 
 - (void)handlePinch:(UIPinchGestureRecognizer *)recognizer;
+- (void)handlePinchLabel:(UIPinchGestureRecognizer *)recognizer;
+- (void)handlePinchImage:(UIPinchGestureRecognizer *)recognizer;
 - (void)handleRotate:(UIRotationGestureRecognizer *)recognizer;
 
 @property (weak, nonatomic) IBOutlet UIView *ContainerView;
 @property(nonatomic, strong) UIButton *tempImageView;
-@property(nonatomic, strong) NSMutableArray *fileArray;
+@property(nonatomic, strong) NSMutableArray *fileArray;//
 @property(nonatomic, strong) UILabel *currentLabel;
 @property (weak, nonatomic) IBOutlet UIView *BoundView;
 @property (weak, nonatomic) IBOutlet UIImageView *BoundImageView;
@@ -40,6 +44,7 @@
 - (IBAction)addLabelAction:(id)sender;
 - (IBAction)clearCanvasAction:(id)sender;
 
+
 @end
 
 @implementation BCViewController
@@ -47,7 +52,8 @@
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];    
+    [super viewDidLoad];
+  
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     self.fileArray=[[NSMutableArray alloc] initWithCapacity:142];
     
@@ -156,11 +162,11 @@
     
     if (IS_IPHONE_5)
     {
-        fileName=[NSString stringWithFormat:@"texture5-%i",[sender tag]];
+        fileName=[NSString stringWithFormat:@"texture5-%li",(long)[sender tag]];
     }
     else
     {
-        fileName=[NSString stringWithFormat:@"texture%i",[sender tag]];
+        fileName=[NSString stringWithFormat:@"texture%li",(long)[sender tag]];
     }
     
     NSLog(@"file name--%@", fileName);
@@ -185,6 +191,9 @@
         BCEditLabelViewController *bvc=(BCEditLabelViewController*)segue.destinationViewController;
         bvc.delegate=self;
         bvc.textToEdit=currentLabel.text;
+        bvc.textToColor=currentLabel.textColor;
+        bvc.textToFont=currentLabel.font ;
+        
     }
    
 }
@@ -203,10 +212,10 @@
     [actionSheet showInView:self.view];
 }
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
-    
+    NSLog(@"%d",buttonIndex);
     
     //buttonIndex 2 is for when cancel button is pressed
-    if(buttonIndex != 2) {
+    if(buttonIndex != 3) {
         
         switch (actionSheet.tag) {
             case 101:
@@ -236,7 +245,8 @@
                 
                 [self.imagePickerController setDelegate:self];
                 [self.imagePickerController setAllowsEditing:YES];
-                
+                 [self.imagePickerController setAutomaticallyAdjustsScrollViewInsets:YES];
+                 
                 [self presentViewController:self.imagePickerController animated:YES completion:nil];
               }
                 
@@ -254,20 +264,52 @@
                     cvc.delegate=self;
                     [self presentViewController:cvc animated:YES completion:nil];
                 }
-                else{
+                if(buttonIndex==1){
                 
                     [self showTextureView:actionSheet];
                 }
+                if (buttonIndex==2)
+                {
+                     pickerController = [[UIImagePickerController alloc] init];
+                    [pickerController setSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+                    
+                    pickerController.title=@"Background";
+                   
+//                    Imagepicker.delegate =self;
+//                    Imagepicker.allowsEditing = YES;
+//                    Imagepicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+//                    
+//                    [self presentViewController:Imagepicker animated:YES completion:NULL];
+                    [pickerController setDelegate:self];
+                    [pickerController setAllowsEditing:YES];
+                    
+                    [self presentViewController:pickerController animated:YES completion:nil];
+                    
+                }
+              
             }
             default:
                 break;
         }
+        
+        
+        
     }
 
 }
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     
     //NSLog(@"info = %@", [info description]);
+    if (picker == pickerController) {
+     UIImage *chosenImage = info[UIImagePickerControllerEditedImage];
+        self.BoundImageView.image = chosenImage;
+        
+        [picker dismissViewControllerAnimated:YES completion:NULL];
+    }
+  
+    else{
+    
+    
     
     UIImage *selectedImage = [info objectForKey:UIImagePickerControllerEditedImage];
     
@@ -275,8 +317,10 @@
     
         UIImage* newImage = selectedImage;
         
-        if (self.dragImageView==nil) {
+        //if (self.dragImageView==nil) {
             
+             if (selectedImage) {// Create Frame till Image Selected
+                 
             self.dragImageView=[[UIImageView alloc] initWithFrame:CGRectMake(44, 44, 200, 200)];
             [self.dragImageView setBackgroundColor:[UIColor clearColor]];
         }
@@ -289,7 +333,7 @@
         [_dragImageView addGestureRecognizer:panGestureLocal];
         
         ////pinch image
-         UIPinchGestureRecognizer *pinchGestureLocal = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
+         UIPinchGestureRecognizer *pinchGestureLocal = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchImage:)];
         [_dragImageView addGestureRecognizer:pinchGestureLocal];
         
         ////rotate
@@ -304,6 +348,7 @@
         //[pinchGestureLocal requireGestureRecognizerToFail:rotateGestureLocal];
         
     }];
+    }
 }
 -(UIImage*)imageWithImage: (UIImage*) sourceImage scaledToWidth: (float) i_width
 {
@@ -319,11 +364,50 @@
     UIGraphicsEndImageContext();
     return newImage;
 }
-////handle pinch
-- (void)handlePinch:(UIPinchGestureRecognizer *)recognizer{
 
-    recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
-    recognizer.scale = 1;
+////handle pinch Label
+
+- (void)handlePinchLabel:(UIPinchGestureRecognizer *)recognizer{
+
+    //recognizer.scale=1;
+    
+    CGFloat pinchScale = recognizer.scale;
+    pinchScale = round(pinchScale * 1000) / 1000.0;
+    NSLog(@"%lf",pinchScale);
+    if (pinchScale < 1)
+    {
+        currentLabel.font = [UIFont fontWithName:currentLabel.font.fontName size:(currentLabel.font.pointSize - pinchScale)];
+         recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
+         [currentLabel sizeToFit];
+        recognizer.scale=1;
+    }
+  else
+    {
+        currentLabel.font = [UIFont fontWithName:currentLabel.font.fontName size:(currentLabel.font.pointSize + pinchScale)];
+         recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
+         [currentLabel sizeToFit];
+        recognizer.scale=1;
+    }
+    NSLog(@"Font :%@",label.font);
+
+}
+// handel pinch image
+- (void)handlePinchImage:(UIPinchGestureRecognizer *)recognizer{
+    
+    CGFloat pinchScale = recognizer.scale;
+    pinchScale = round(pinchScale * 1000) / 1000.0;
+    NSLog(@"%lf",pinchScale);
+    if (pinchScale < 1)
+    {
+        recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
+        recognizer.scale=1;
+    }
+    else
+    {
+        recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
+        recognizer.scale=1;
+    }
+    
 }
 ///handle rotate
 - (void)handleRotate:(UIRotationGestureRecognizer *)recognizer{
@@ -359,10 +443,11 @@
 
 - (IBAction)addLabelAction:(id)sender {
     
-    UILabel *label=[[UILabel alloc] init];
-    [label setFrame:CGRectMake(200, 60, 200, 30)];
+    label=[[UILabel alloc] init];
+    [label setFrame:CGRectMake(200, 60, 250, 40)];
     label.text=@"Double Tap to edit";
     label.textColor=[UIColor darkGrayColor];
+    label.autoresizesSubviews=YES;
     label.backgroundColor=[UIColor clearColor];
     label.userInteractionEnabled=YES;
     [label sizeToFit];
@@ -372,7 +457,7 @@
     [label addGestureRecognizer:panGestureLocal];
     
     //////add pinch gesture on label
-    UIPinchGestureRecognizer *pinchGestureLocal = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinch:)];
+    UIPinchGestureRecognizer *pinchGestureLocal = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(handlePinchLabel:)];
     [label addGestureRecognizer:pinchGestureLocal];
     /////////add action on label
     UITapGestureRecognizer *tapGestureLocal = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapLabel:)];
@@ -400,10 +485,11 @@
 }
 -(void)saveTextWith:(NSString *)text txtFont:(UIFont *)font txtColor:(UIColor *)txtColor{
 
-    [currentLabel setMinimumScaleFactor:MIN_FONT_SIZE];
+   [currentLabel setMinimumScaleFactor:MIN_FONT_SIZE];
     [currentLabel setText:text];
     [currentLabel setFont:font];
     [currentLabel setTextColor:txtColor];
+    [currentLabel sizeToFit];         // For Adjust the Width of label
     
 }
 -(void)pressLabel:(UILongPressGestureRecognizer*)recognizer{
@@ -437,7 +523,7 @@
 
 - (IBAction)changeBackground:(id)sender {
     
-    UIActionSheet *actionSheet=[[UIActionSheet alloc] initWithTitle:@"Option" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Solid Color",@"Templates", nil];
+    UIActionSheet *actionSheet=[[UIActionSheet alloc] initWithTitle:@"Option" delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Solid Color",@"Templates", @"Photo Album",nil];
     actionSheet.tag=102;
     [actionSheet showInView:self.view];
     
@@ -489,9 +575,20 @@
                   orientation: UIImageOrientationUp];
     
     /* Save to the photo album */
-    UIImageWriteToSavedPhotosAlbum(imageToSave , nil, nil, nil);
+    UIImageWriteToSavedPhotosAlbum(imageToSave ,
+                                   self, // send the message to 'self' when calling the callback
+                                   @selector(thisImage:hasBeenSavedInPhotoAlbumWithError:usingContextInfo:), // the selector to tell the method to call on completion
+                                   NULL); // you generally won't need a contextInfo here);
     
     [[[UIAlertView alloc] initWithTitle:@"digiBiz Card" message:@"Image saved to photo album" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil]show];
+}
+- (void)thisImage:(UIImage *)image hasBeenSavedInPhotoAlbumWithError:(NSError *)error usingContextInfo:(void*)ctxInfo {
+    if (error) {
+        // Do anything needed to handle the error or display it to the user
+    } else {
+        // .... do anything you want here to handle
+        // .... when the image has been saved in the photo album
+    }
 }
 - (BOOL)prefersStatusBarHidden {
     

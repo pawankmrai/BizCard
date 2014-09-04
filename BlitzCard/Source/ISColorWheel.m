@@ -286,7 +286,7 @@ static PixelRGB ISColorWheel_HSBToRGB (float h, float s, float v)
     float b = 1.0;
     float a = 1.0;
     
-    [color getHue:&h saturation:&s brightness:&b alpha:&a];
+    [color getHue:(CGFloat*)&h saturation:(CGFloat*)&s brightness:(CGFloat*)&b alpha:(CGFloat*)&a];
     
     self.brightness = b;
     
